@@ -4,7 +4,9 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
-  }
+    bikes: [Bike]
+    contracts: [Contract]
+}
 
   type Mutation {
     login(email: String!, password: String!): Auth
@@ -12,7 +14,7 @@ const typeDefs = gql`
   }
 
   type User {
-    _id: ID
+    _id: ID!
     username: String!
     email: String!
     password: String!
@@ -22,19 +24,32 @@ const typeDefs = gql`
   }
 
   type Bike {
-    bikeId: String!
+    _id: ID!
     make: String
     model: String
-    year: Num
-    mileage: Num
+    year: Int
+    mileage: Int
     description: String
-    bikePricePerDay: Num!
+    bikePricePerDay: Float!
     images: [String]
   }
 
-  type Auth {
-    token: ID!
-    user: User
+  type Insurance {
+   _id: ID!
+   createdAt: Date
+   user: ID
+   bike: ID
+   insuranceQuotePerDay: Float!
+  }
+
+  type Contract { 
+    _id: ID!
+    createdAt: Date
+    user: ID
+    bike: ID
+    duration: Int!
+    rentalPriceSub: Float!
+    rentalPriceTotal: Float!
   }
 `;
 
