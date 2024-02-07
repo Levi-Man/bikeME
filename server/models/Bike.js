@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedBooks` array in User.js
 const bikeSchema = new Schema({
@@ -31,4 +31,6 @@ const bikeSchema = new Schema({
   contracts: [{type: Schema.Types.ObjectId, ref: 'Contract'}]
 });
 
-module.exports = bikeSchema;
+const Bike = model('Bike', bikeSchema);
+
+module.exports = Bike;

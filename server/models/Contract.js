@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
-const Insurance = require('./Insurance');
-const Bike = require('./Bike');
+const {Insurance, Bike} = require('../models');
+
 
 const contractSchema = new Schema({
     createdAt: {
@@ -47,4 +47,6 @@ contractSchema.pre('save', async function (next) {
     }
 });
 
-module.exports = contractSchema;
+const Contract = model('Contract', contractSchema);
+
+module.exports = Contract;

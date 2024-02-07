@@ -1,6 +1,5 @@
 const { Schema } = require('mongoose');
-const User = require('./User');
-const Bike = require('./Bike');
+const {User, Bike} = require('../models');
 
 const insuranceSchema = new Schema({
     createdAt: {
@@ -52,4 +51,6 @@ insuranceSchema.methods.calculateInsuranceQuote = function (age, yearsDriving, b
     return basePremium * ageFactor * drivingFactor * priceFactor;
 };
 
-module.exports = model('Insurance', insuranceSchema);
+ const Insurance = model('Insurance', insuranceSchema);
+
+ module.exports = Insurance;
