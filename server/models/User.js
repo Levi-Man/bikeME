@@ -1,9 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// import schema from Book.js
-const bookSchema = require('./Book');
-
 const userSchema = new Schema(
   {
     username: {
@@ -21,8 +18,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set savedBooks to be an array of data that adheres to the bookSchema
-    savedBooks: [bookSchema],
+    dateOfBirth: {
+     type: Date,
+     required: true,
+    }, 
+    licenseDate: {
+      type: Date, 
+      required: true,
+    },
+      contracts: [{type: Schema.Types.ObjectId, ref: 'Contract'}],
   },
   // set this to use virtual below
   {
@@ -31,6 +35,30 @@ const userSchema = new Schema(
     },
   }
 );
+
+// virtual property to compute age
+userSchema.virtual('age').get(function() {
+  const currentDate = new Date();
+  const birthDate = new Date(this.dateOfBirth);
+  const age = currentDate.getFullYear() - birthDate.getFullYear();
+  const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
+    return age - 1;
+  }
+  return age;
+});
+
+// virtual property to compute years driving
+userSchema.virtual('yearsDriving').get(function() {
+  const currentDate = new Date();
+  const firstLicenseDate = new Date(this.licenseDate);
+  const yearsDriving = currentDate.getFullYear() - firstLicenseDate.getFullYear();
+  const monthDifference = currentDate.getMonth() - firstLicenseDate.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < firstLicenseDate.getDate())) {
+    return yearsDriving - 1;
+  }
+  return yearsDriving;
+});
 
 // hash user password
 userSchema.pre('save', async function (next) {
@@ -46,11 +74,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-userSchema.virtual('bookCount').get(function () {
-  return this.savedBooks.length;
-});
 
 const User = model('User', userSchema);
 

@@ -4,44 +4,52 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
-  }
+    bikes: [Bike]
+    contracts: [Contract]
+}
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveBook(input: BookInput!): User
-    removeBook(bookId: String!): User
-  }
-
-  input BookInput {
-    bookId: String!
-    authors: [String]
-    description: String!
-    title: String!
-    image: String
-    link: String
   }
 
   type User {
-    _id: ID
-    username: String
-    email: String
-    bookCount: Int
-    savedBooks: [Book]
+    _id: ID!
+    username: String!
+    email: String!
+    password: String!
+    dateOfBirth: Date
+    licenseDate: Date
+    contracts: [Contract]
   }
 
-  type Book {
-    bookId: String
-    authors: [String]
+  type Bike {
+    _id: ID!
+    make: String
+    model: String
+    year: Int
+    mileage: Int
     description: String
-    title: String
-    image: String
-    link: String
+    bikePricePerDay: Float!
+    images: [String]
   }
 
-  type Auth {
-    token: ID!
-    user: User
+  type Insurance {
+   _id: ID!
+   createdAt: Date
+   user: ID
+   bike: ID
+   insuranceQuotePerDay: Float!
+  }
+
+  type Contract { 
+    _id: ID!
+    createdAt: Date
+    user: ID
+    bike: ID
+    duration: Int!
+    rentalPriceSub: Float!
+    rentalPriceTotal: Float!
   }
 `;
 
