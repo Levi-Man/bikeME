@@ -1,21 +1,31 @@
-const { User } = require('../models');
+const { User, Contract } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
-    // Resolver for getting a single user by either their id or their username
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({
-          _id: context.user._id
-        });
+    me: async (parent, args, { user }) => {
+      if (!user) {
+        throw new Error('You are not authenticated!');
       }
-      throw new AuthenticationError('Cannot find a user with this id!');
+      try {
+        // Fetch the user's data including contracts
+        const userData = await User.findById(user._id).populate('contracts');
+        return userData;
+      } catch (error) {
+        throw new Error('Failed to fetch user data');
+      }
     },
-    users: async () => {
-      return User.find()
-        .select('-__v -password');
+    bikes: async (parents, arg, { bike }) => {
+      if (!bike) {
+        throw new Error('No bikes found!');
+      }
+      try {
+        const bikeData = await Bike.findall();
+        return bikeData;
+      } catch (error) {
+        throw new Error('Failed to fetch bike data');
+      }
     },
   },
   Mutation: {
@@ -48,37 +58,15 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-
-    // Resolver for saving a book to a user's `savedBooks` field
-    saveBook: async (parent, { input }, context) => {
+  },
+  User: {
+    contracts: async (parent) => {
       try {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedBooks: input } },
-          { new: true, runValidators: true }
-        );
-        return updatedUser;
-      } catch (err) {
-        console.log(err);
-        throw new AuthenticationError('Failed to save the book.');
+        const contracts = await Contract.find({ user: parent._id });
+        return contracts;
+      } catch (error) {
+        throw new Error('Failed to fetch contracts');
       }
-    },
-
-    // Resolver for removing a book from `savedBooks`
-    removeBook: async (parent, { bookId }, context) => {
-      if (context.user){
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { savedBooks: { bookId: bookId }} },
-        { new: true }
-      )
-      return updatedUser;
-      };
-
-      if (!updatedUser) {
-        throw new AuthenticationError("Couldn't find user with this id!");
-      }
-
     },
   },
 };
