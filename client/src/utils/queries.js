@@ -18,3 +18,12 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+// bike query
+
+// category query 
+
+// allBikes query
+
+
+

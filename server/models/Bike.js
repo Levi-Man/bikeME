@@ -27,6 +27,10 @@ const bikeSchema = new Schema({
     type: Number,
     required: true
   },
+  availability: {
+    type: Boolean,
+    rewuired: true
+  }
   images: [imageSchema],
   category: {
     type: String,
