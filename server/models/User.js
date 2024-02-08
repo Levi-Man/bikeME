@@ -1,4 +1,8 @@
+
+//TODO: Change this when you figure it out
+
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -21,6 +25,8 @@ const userSchema = new Schema(
     dateOfBirth: {
      type: Date,
      required: true,
+     get: (timestamp) => dateFormat(timestamp), //TODO: Change this when you figure it out
+     
     }, 
     licenseDate: {
       type: Date, 
