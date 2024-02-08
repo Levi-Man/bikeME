@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap';
-import 'masonry-layout';
 import './index.css';
 
 import App from './App.jsx';
