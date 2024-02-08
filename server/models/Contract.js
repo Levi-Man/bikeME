@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const {Insurance, Bike} = require('../models');
 
 
@@ -38,8 +38,8 @@ contractSchema.pre('save', async function (next) {
         this.rentalPriceSub = (bikePricePerDay + insurancePerDay) * this.duration;
 
         // Calculate rental price total with 13% HST (Harmonized Sales Tax)
-        const HST_PERCENTAGE = 0.13;
-        this.rentalPriceTotal = this.rentalPriceSub * (1 + HST_PERCENTAGE);
+   
+        this.rentalPriceTotal = this.rentalPriceSub * 1.13;
 
         next();
     } catch (error) {

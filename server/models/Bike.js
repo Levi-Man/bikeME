@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const imageSchema = require('./Image');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedBooks` array in User.js
 const bikeSchema = new Schema({
@@ -11,24 +12,28 @@ const bikeSchema = new Schema({
     type: String,
     required: true
   },
-  year: { 
-    type: Number, 
+  year: {
+    type: Number,
     required: true
   },
   mileage: {
     type: Number,
     required: true
-  }, 
+  },
   description: {
     type: String,
     required: true,
-   },
-   bikePricePerDay: {
+  },
+  bikePricePerDay: {
     type: Number,
     required: true
-   },
+  },
   images: [imageSchema],
-  contracts: [{type: Schema.Types.ObjectId, ref: 'Contract'}]
+  category: {
+    type: String,
+    required: true
+  },
+  contracts: [{ type: Schema.Types.ObjectId, ref: 'Contract' }]
 });
 
 const Bike = model('Bike', bikeSchema);
