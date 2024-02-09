@@ -8,7 +8,10 @@ const categorySchema = new Schema({
     required: true
   },
 
-  bike:[{ type: Schema.Types.ObjectId, ref: 'Bike' }],
+  bikes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Bike'
+  }],
 });
 
 const Category = model('Category', categorySchema);

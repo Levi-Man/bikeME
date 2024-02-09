@@ -22,23 +22,26 @@ export const QUERY_ME = gql`
 
 export const QUERY_CATEGORY = gql`
   query category {
-    _id
-    name
-    bikes{
+    category {
       _id
-      make
-      model
-      year
-      mileage
-      description
-      bikePricePerDay
-      images
+      name
+      bikes{
+        _id
+        make
+        model
+        year
+        mileage
+        description
+        bikePricePerDay
+        images
+      }
     }
   }
 `;
 
 export const QUERY_BIKES = gql`
   query bike {
+    bikes {
       _id
       make
       model
@@ -47,9 +50,10 @@ export const QUERY_BIKES = gql`
       description
       bikePricePerDay
       images
-      category{
+      category {
         _id
         name
       }
+    }
   }
 `;
