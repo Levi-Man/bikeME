@@ -1,4 +1,8 @@
 const { Schema, model } = require('mongoose');
+<<<<<<< HEAD
+=======
+// const {Insurance, Bike} = require('../models');
+>>>>>>> main
 const dateFormat = require('../utils/dateFormat');
 
 const contractSchema = new Schema({

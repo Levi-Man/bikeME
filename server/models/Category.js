@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const bikeSchema = require('./Bike');
+// const bikeSchema = require('./Bike');
 
 const categorySchema = new Schema({
   name:

@@ -5,8 +5,11 @@ const typeDefs = gql`
     me: User
     users: [User]
     bikes: [Bike]
+    bike(bikeId: ID!): Bike
     contracts: [Contract]
-    category: Category
+
+    #made this plural
+    categories: [Category]
 }
 
   type Mutation {
@@ -53,9 +56,12 @@ const typeDefs = gql`
     rentalPriceTotal: Float!
   }
 
+  #edited the schema to add the bikes
+
   type Category {
     _id: ID!
     name: String
+    bikes: [Bike]
   }
 
   type Auth {
