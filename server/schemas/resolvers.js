@@ -43,12 +43,14 @@ const resolvers = {
       }
     },
 
-    category: async (parents, arg, {category}) =>{
-      if(!category){
+    categories: async () =>{
+
+      const categoryData = await Category.find({}).populate('bikes');
+
+      if(!categoryData){
         throw new Error('No Categories Found!');
       }
       try {
-        const categoryData = await Category.findall().populate('bikes');
         return categoryData;
       } catch (error) {
         throw new Error('Failed to fetch Categories');
