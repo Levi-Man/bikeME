@@ -16,6 +16,8 @@ const resolvers = {
         throw new Error('Failed to fetch user data');
       }
     },
+
+    //get all bikes
     bikes: async () => {
       const bikeData = await Bike.find();
       if (!bikeData) {
@@ -26,15 +28,29 @@ const resolvers = {
       } catch (error) {
         throw new Error('Failed to fetch bike data');
       }
-      // return Bike.find();
     },
 
-    category: async (parents, arg, {category}) =>{
-      if(!category){
+    //get single bike
+    bike: async (parent, { bikeId }) => {
+      const bikeData = await Bike.findOne({ _id: bikeId });
+      if (!bikeData) {
+        throw new Error('No bikes found with this id!');
+      }
+      try {
+        return bikeData;
+      } catch (error) {
+        throw new Error('Failed to fetch bike data');
+      }
+    },
+
+    categories: async () =>{
+
+      const categoryData = await Category.find({}).populate('bikes');
+
+      if(!categoryData){
         throw new Error('No Categories Found!');
       }
       try {
-        const categoryData = await Category.findall().populate('bikes');
         return categoryData;
       } catch (error) {
         throw new Error('Failed to fetch Categories');
