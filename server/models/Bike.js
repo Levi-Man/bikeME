@@ -33,8 +33,7 @@ const bikeSchema = new Schema({
   },
   images: [imageSchema],
   category: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category', // Reference to the Category model
+    type: String,
     required: true
   },
   contracts: [{ 

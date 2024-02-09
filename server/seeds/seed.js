@@ -22,26 +22,43 @@ const seedData = async () => {
     // Insert new bikes
     const insertedBikes = await Bike.insertMany(bikesData);
 
+    categoriesData.forEach((c) => {
+      console.log(c)
+      let filteredBikes = insertedBikes.map((b) => {
+        let bikeIds = []
+        if (b.category == c.name) {
+          return b._id
+        }
+      }
+      )
+      let filteredCategoryBike = filteredBikes.filter((b) =>
+        b
+      )
+      console.log(filteredCategoryBike)
+      if (filteredCategoryBike.length > 0)
+        Category.create({ name: c.name, bikes: filteredCategoryBike })
+    })
+
     // Insert new users
     const insertedUsers = await User.insertMany(usersData);
 
-    // Insert categories
-    const insertedCategories = await Category.insertMany(categoriesData)
+    // // Insert categories
+    // const insertedCategories = await Category.insertMany(categoriesData)
 
-    // Retrieve the generated user and bike names
-    const bikeName = insertedBikes.map(bike => bike.model);
-    const userName = insertedUsers.map(user => user.name);
-// const categoryIds = insertedCategories.map(category => category._id);
+    // // Retrieve the generated user and bike names
+    // const bikeName = insertedBikes.map(bike => bike.model);
+    // const userName = insertedUsers.map(user => user.name);
+    // const categoryIds = insertedCategories.map(category => category._id);
 
     // Create contract objects with rentalPriceSub and rentalPriceTotal calculated
     const contracts = contractsData.map((contract, index) => {
       const bike = insertedBikes.find(bike => bike.model === contract.bikeName);
       const user = insertedUsers.find(user => user.name === contract.user);
-      
+
       if (!bike) {
         throw new Error(`Bike with name "${contract.bikeName}" not found`);
       }
-      
+
       if (!user) {
         throw new Error(`User with name "${contract.user}" not found`);
       }
@@ -54,7 +71,7 @@ const seedData = async () => {
       );
       const rentalPriceSub = (bikePricePerDay + insuranceQuotePerDay) * contract.duration;
       const rentalPriceTotal = rentalPriceSub * 1.13; // Total with 13% HST
-      
+
       return {
         ...contract,
         user: user._id, // Use user's _id
@@ -72,7 +89,8 @@ const seedData = async () => {
     console.error('Error seeding data:', error);
   } finally {
     // Close database connection
-    mongoose.disconnect();
+    // mongoose.disconnect();
+    process.exit(0);
   }
 };
 
@@ -97,6 +115,7 @@ const bikesData = [
     description: 'Sportbike',
     category: 'Sport',
     bikePricePerDay: 50.99,
+    availability: true,
     images: [{ url: 'image1.jpg', description: 'Image 1' }, { url: 'image2.jpg', description: 'Image 2' }],
   },
   {
@@ -107,6 +126,7 @@ const bikesData = [
     description: 'Supersport',
     category: 'Sport',
     bikePricePerDay: 60.50,
+    availability: true,
     images: [{ url: 'image3.jpg', description: 'Image 3' }, { url: 'image4.jpg', description: 'Image 4' }],
   },
   {
@@ -117,6 +137,7 @@ const bikesData = [
     description: 'Superbike',
     category: 'Sport',
     bikePricePerDay: 70.75,
+    availability: true,
     images: [{ url: 'image5.jpg', description: 'Image 5' }, { url: 'image6.jpg', description: 'Image 6' }],
   },
   {
@@ -127,6 +148,7 @@ const bikesData = [
     description: 'Adventure Touring',
     category: 'Adventure',
     bikePricePerDay: 90.25,
+    availability: true,
     images: [{ url: 'image7.jpg', description: 'Image 7' }, { url: 'image8.jpg', description: 'Image 8' }],
   },
   {
@@ -137,6 +159,7 @@ const bikesData = [
     description: 'Naked Bike',
     category: 'Retro',
     bikePricePerDay: 75.90,
+    availability: true,
     images: [{ url: 'image9.jpg', description: 'Image 9' }, { url: 'image10.jpg', description: 'Image 10' }],
   },
   {
@@ -147,6 +170,7 @@ const bikesData = [
     description: 'Naked Bike',
     category: 'Retro',
     bikePricePerDay: 65.75,
+    availability: true,
     images: [{ url: 'image11.jpg', description: 'Image 11' }, { url: 'image12.jpg', description: 'Image 12' }],
   },
   {
@@ -157,6 +181,7 @@ const bikesData = [
     description: 'Cruiser',
     category: 'Cruiser',
     bikePricePerDay: 85.50,
+    availability: true,
     images: [{ url: 'image13.jpg', description: 'Image 13' }, { url: 'image14.jpg', description: 'Image 14' }],
   },
   {
@@ -167,6 +192,7 @@ const bikesData = [
     description: 'Adventure Touring',
     category: 'Adventure',
     bikePricePerDay: 55.40,
+    availability: true,
     images: [{ url: 'image15.jpg', description: 'Image 15' }, { url: 'image16.jpg', description: 'Image 16' }],
   },
   {
@@ -177,6 +203,7 @@ const bikesData = [
     description: 'Superbike',
     category: 'Sport',
     bikePricePerDay: 80.25,
+    availability: true,
     images: [{ url: 'image17.jpg', description: 'Image 17' }, { url: 'image18.jpg', description: 'Image 18' }],
   },
   {
@@ -187,6 +214,7 @@ const bikesData = [
     description: 'Cruiser',
     category: 'Cruiser',
     bikePricePerDay: 70.00,
+    availability: true,
     images: [{ url: 'image19.jpg', description: 'Image 19' }, { url: 'image20.jpg', description: 'Image 20' }],
   },
 ];

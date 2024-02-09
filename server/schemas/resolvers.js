@@ -30,18 +30,6 @@ const resolvers = {
       }
     },
 
-<<<<<<< HEAD
-    category: async () => {
-      try {
-        const categoryData = await Category.find().populate('bikes');
-        if (!categoryData || categoryData.length === 0) {
-          throw new Error('No Categories Found!');
-        }
-        return categoryData.map(category => ({
-          ...category.toObject(),
-          _id: category._id.toString(),
-        }));
-=======
     //get single bike
     bike: async (parent, { bikeId }) => {
       const bikeData = await Bike.findOne({ _id: bikeId });
@@ -64,7 +52,6 @@ const resolvers = {
       }
       try {
         return categoryData;
->>>>>>> main
       } catch (error) {
         throw new Error('Failed to fetch Categories');
       }
