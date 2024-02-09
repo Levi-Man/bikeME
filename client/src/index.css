@@ -38,6 +38,7 @@
   padding-bottom: 300px;
   min-height: 50em;  
   margin-bottom: 0px;
+  background: #f8f9fa
 }
 
 .AboutMeBox {
@@ -93,4 +94,8 @@
   background-color: #EF946C;
 }
 
-
+.text-gradient {
+  background: #4ECDC4;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
