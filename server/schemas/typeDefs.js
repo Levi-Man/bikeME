@@ -36,6 +36,7 @@ const typeDefs = gql`
     description: String
     bikePricePerDay: Float!
     images: [String]
+    category: String
   }
 
   type Insurance {
