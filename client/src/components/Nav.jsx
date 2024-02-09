@@ -1,13 +1,15 @@
 // Bringing in the required import from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 // import Navbar from './UI/Navbar';
 
 import logo from "../assets/site-logo.png";
-
 import { Image, Button, Container, Form, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap';
+import { handleCategoryLink } from '../pages/AllBikesPage';
+
+
 
 export default function Navigation() {
-
 
     return (
 
@@ -23,31 +25,31 @@ export default function Navigation() {
                     variant='underline'
                     defaultActiveKey="/"
                 >
-                    <Nav.Link as={Link} to="/" eventKey="/">Home</Nav.Link>
-                    <Nav.Link as={Link} to="/portfolio" eventKey="/portfolio">About Us</Nav.Link>
+                    <Nav.Link as={HashLink} to="/#homePageTop" eventKey="/#homePageTop">Home</Nav.Link>
+                    <Nav.Link as={HashLink} to="/#aboutUsSection" eventKey="/#aboutUsSection">About Us</Nav.Link>
                     <NavDropdown
                         title="Bikes"
                         id="basic-nav-dropdown"
                         align={`end`}
                     >
-                        <NavDropdown.Item as={Link} to="/portfolio" eventKey="/portfolio">
+                        <NavDropdown.Item as={Link} to="/bikes" eventKey="/bikes">
                             All Bikes
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
                         <Dropdown.Header>by Category:</Dropdown.Header>
-                        <NavDropdown.Item as={Link} to="/portfolio" eventKey="/portfolio">
+                        <NavDropdown.Item as={Link} to="/bikes#sportBikes" eventKey="/bikes#sportBikes" >
                             Sport
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/contact" eventKey="/contact">
+                        <NavDropdown.Item as={Link} to="/bikes#touringBikes" eventKey="/bikes#touringBikes">
                             Touring
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/contact" eventKey="/contact">
+                        <NavDropdown.Item as={Link} to="/bikes#adventureBikes" eventKey="/bikes#adventureBikes">
                             Adventure
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/contact" eventKey="/contact">
+                        <NavDropdown.Item as={Link} to="/bikes#cruiserBikes" eventKey="/bikes#cruiserBikes">
                             Cruiser
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/contact" eventKey="/contact">
+                        <NavDropdown.Item as={Link} to="/bikes#retroBikes" eventKey="/bikes#retroBikes">
                             Retro
                         </NavDropdown.Item>
                     </NavDropdown>
