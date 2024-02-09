@@ -5,7 +5,11 @@ const typeDefs = gql`
     me: User
     users: [User]
     bikes: [Bike]
+    bike(bikeId: ID!): Bike
     contracts: [Contract]
+
+    #made this plural
+    categories: [Category]
 }
 
   type Mutation {
@@ -18,8 +22,8 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-    dateOfBirth: Date
-    licenseDate: Date
+    dateOfBirth: String
+    licenseDate: String
     contracts: [Contract]
   }
 
@@ -36,7 +40,7 @@ const typeDefs = gql`
 
   type Insurance {
    _id: ID!
-   createdAt: Date
+   createdAt: String
    user: ID
    bike: ID
    insuranceQuotePerDay: Float!
@@ -44,13 +48,27 @@ const typeDefs = gql`
 
   type Contract { 
     _id: ID!
-    createdAt: Date
+    createdAt: String
     user: ID
     bike: ID
     duration: Int!
     rentalPriceSub: Float!
     rentalPriceTotal: Float!
   }
+
+  #edited the schema to add the bikes
+
+  type Category {
+    _id: ID!
+    name: String
+    bikes: [Bike]
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
 `;
+
 
 module.exports = typeDefs;

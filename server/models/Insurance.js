@@ -1,10 +1,19 @@
-const { Schema, model } = require('mongoose');
+//Edited the import and changed it to types since it is a schema and not a model
+const { Schema, Types } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
-
+//Edited the schema to include the default id
 const insuranceSchema = new Schema({
+
+    insuranceId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+      },
+
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
     },
     user: {
         type: Schema.Types.ObjectId,

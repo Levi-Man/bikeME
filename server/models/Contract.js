@@ -1,11 +1,13 @@
 const { Schema, model } = require('mongoose');
-const {Insurance, Bike} = require('../models');
+// const {Insurance, Bike} = require('../models');
+const dateFormat = require('../utils/dateFormat');
 
 
 const contractSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
     },
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     bike: {type: Schema.Types.ObjectId, ref: 'Bike'},

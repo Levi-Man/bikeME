@@ -7,14 +7,49 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      savedBooks {
-        bookId
-        authors
-        description
-        title
-        image
-        link
+      contracts {
+        _id
+        createdAt
+        user
+        bike
+        duration
+        rentalPriceSub
+        rentalPriceTotal
       }
     }
+  }
+`;
+
+export const QUERY_CATEGORY = gql`
+  query category {
+    _id
+    name
+    bikes{
+      _id
+      make
+      model
+      year
+      mileage
+      description
+      bikePricePerDay
+      images
+    }
+  }
+`;
+
+export const QUERY_BIKES = gql`
+  query bike {
+      _id
+      make
+      model
+      year
+      mileage
+      description
+      bikePricePerDay
+      images
+      category{
+        _id
+        name
+      }
   }
 `;
