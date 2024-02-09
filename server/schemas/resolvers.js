@@ -29,13 +29,16 @@ const resolvers = {
       // return Bike.find();
     },
 
-    category: async (parents, arg, {category}) =>{
-      if(!category){
-        throw new Error('No Categories Found!');
-      }
+    category: async () => {
       try {
-        const categoryData = await Category.findall().populate('bikes');
-        return categoryData;
+        const categoryData = await Category.find().populate('bikes');
+        if (!categoryData || categoryData.length === 0) {
+          throw new Error('No Categories Found!');
+        }
+        return categoryData.map(category => ({
+          ...category.toObject(),
+          _id: category._id.toString(),
+        }));
       } catch (error) {
         throw new Error('Failed to fetch Categories');
       }
