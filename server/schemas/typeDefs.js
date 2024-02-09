@@ -5,6 +5,7 @@ const typeDefs = gql`
     me: User
     users: [User]
     bikes: [Bike]
+    bike(bikeId: ID!): Bike
     contracts: [Contract]
     category: Category
 }
