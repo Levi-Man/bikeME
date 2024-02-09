@@ -10,7 +10,7 @@ import './index.css';
 
 import App from './App.jsx';
 import AboutPage from './pages/AboutPage.jsx';
-import PortfolioPage from './pages/PortfolioPage.jsx';
+import AllBikesPage from './pages/AllBikesPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import ResumePage from './pages/ResumePage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: 'portfolio',
-        element: <PortfolioPage />,
+        path: 'bikes',
+        element: <AllBikesPage />,
       },
       {
         path: 'contact',
