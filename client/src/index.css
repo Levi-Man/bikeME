@@ -5,6 +5,10 @@
   padding-right: 100px;    
 }*/
 
+html {
+  scroll-padding-top: 100px; /* height of sticky header */
+}
+
 .logo {
   /* color:gold;
   background-color: gold; */
@@ -37,7 +41,7 @@
   padding-right: 100px; */
   padding-bottom: 300px;
   min-height: 50em;  
-  margin-bottom: 0px;
+  margin-bottom: 0px;  
   background: #f8f9fa
 }
 
