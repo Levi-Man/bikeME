@@ -4,7 +4,6 @@ import { HashLink } from 'react-router-hash-link';
 
 import logo from "../assets/site-logo.png";
 import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap';
-import { handleCategoryLink } from '../pages/AllBikesPage';
 
 
 

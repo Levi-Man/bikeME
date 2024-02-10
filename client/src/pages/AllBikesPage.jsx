@@ -12,6 +12,8 @@ import {
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../styles.css";
+import bikesData from "../utils/SampleSeedData";
+
 
 const responsive = {
     desktop: {
@@ -31,43 +33,21 @@ const responsive = {
     },
 };
 
-const sliderImageUrl = [
-    //First image url
-    {
-        url: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?q=80&w=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-        url: "https://images.unsplash.com/photo-1615195095757-5670eacfc3c8?q=80&w=1539&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    //Second image url
-    {
-        url: "https://images.unsplash.com/photo-1612426131812-7f046e5c9323?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fG1vdG9yY3ljbGVzfGVufDB8fDB8fHww",
-    },
-    //Third image url
-    {
-        url: "https://images.unsplash.com/photo-1558981033-0f0309284409?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-
-    //Fourth image url
-
-    {
-        url: "https://images.unsplash.com/photo-1614826380482-584247564bde?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-];
-
-export const handleCategoryLink = (categoryLink) => {
-    console.log(categoryLink);
-    // const element = document.getElementById(categoryLink);
-    // element.click();
-    // document.getElementById('touringBikes').click();
-
-    // let element = document.getElementById(target.id);
-    // element.classList.add('active');
-};
 
 // default export function for portfolio component
 export default function AllBikesPage() {
     const [open, setOpen] = useState(false);
+    //   console.log(bikesData);
+    const sportBikesData = bikesData.filter((bike) => bike.category === 'Sport');
+    const touringBikesData = bikesData.filter((bike) => bike.category === 'Touring');
+    const adventureBikesData = bikesData.filter((bike) => bike.category === 'Adventure');
+    const cruiserBikesData = bikesData.filter((bike) => bike.category === 'Cruiser');
+    const retroBikesData = bikesData.filter((bike) => bike.category === 'Retro');
+    console.log("sportBikesData", sportBikesData);
+    console.log("touringBikesData", touringBikesData);
+    console.log("adventureBikesData", adventureBikesData);
+    console.log("cruiserBikesData", cruiserBikesData);
+    console.log("retroBikesData", retroBikesData);
 
     return (
         <Container fluid>
@@ -105,9 +85,10 @@ export default function AllBikesPage() {
                                 showDots={true}
                                 infinite={false}
                                 partialVisible={false}
+                                ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sliderImageUrl.map((imageUrl, index) => {
+                                {sportBikesData.map((bike, index) => {
                                     return (
                                         <div id="sportBikes" className="slider">
                                             <Card
@@ -119,14 +100,18 @@ export default function AllBikesPage() {
                                                 <Card.Img
                                                     id="cardImage"
                                                     variant="top"
-                                                    src={imageUrl.url}
+                                                    src={bike.images[0].url}
                                                 />
                                                 <Card.Body>
-                                                    <Card.Title>Bike Name {index}</Card.Title>
+                                                    <Card.Title>{`${bike.make} ${bike.model} (${bike.year})`}</Card.Title>
                                                     <Card.Text>
-                                                        Description - Some quick example text
+                                                        {bike.description}
                                                     </Card.Text>
-                                                    <Button variant="outline-light" as={Link} to="/">
+                                                    <Button
+                                                        variant="outline-light"
+                                                        as={Link}
+                                                        to="/bike/:id"
+                                                    >
                                                         view
                                                     </Button>
                                                 </Card.Body>
@@ -146,13 +131,14 @@ export default function AllBikesPage() {
                                 responsive={responsive}
                                 autoPlay={false}
                                 swipeable={false}
-                                draggable={true}
+                                draggable={false}
                                 showDots={true}
                                 infinite={false}
                                 partialVisible={false}
+                                ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sliderImageUrl.map((imageUrl, index) => {
+                                {touringBikesData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -164,14 +150,18 @@ export default function AllBikesPage() {
                                                 <Card.Img
                                                     id="cardImage"
                                                     variant="top"
-                                                    src={imageUrl.url}
+                                                    src={bike.images[0].url}
                                                 />
                                                 <Card.Body>
-                                                    <Card.Title>Bike Name {index}</Card.Title>
+                                                    <Card.Title>{`${bike.make} ${bike.model} (${bike.year})`}</Card.Title>
                                                     <Card.Text>
-                                                        Description - Some quick example text
+                                                        {bike.description}
                                                     </Card.Text>
-                                                    <Button variant="outline-light" as={Link} to="/">
+                                                    <Button
+                                                        variant="outline-light"
+                                                        as={Link}
+                                                        to="/bike/:id"
+                                                    >
                                                         view
                                                     </Button>
                                                 </Card.Body>
@@ -191,13 +181,14 @@ export default function AllBikesPage() {
                                 responsive={responsive}
                                 autoPlay={false}
                                 swipeable={false}
-                                draggable={true}
+                                draggable={false}
                                 showDots={true}
                                 infinite={false}
                                 partialVisible={false}
+                                ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sliderImageUrl.map((imageUrl, index) => {
+                                {adventureBikesData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -209,14 +200,18 @@ export default function AllBikesPage() {
                                                 <Card.Img
                                                     id="cardImage"
                                                     variant="top"
-                                                    src={imageUrl.url}
+                                                    src={bike.images[0].url}
                                                 />
                                                 <Card.Body>
-                                                    <Card.Title>Bike Name {index}</Card.Title>
+                                                    <Card.Title>{`${bike.make} ${bike.model} (${bike.year})`}</Card.Title>
                                                     <Card.Text>
-                                                        Description - Some quick example text
+                                                        {bike.description}
                                                     </Card.Text>
-                                                    <Button variant="outline-light" as={Link} to="/">
+                                                    <Button
+                                                        variant="outline-light"
+                                                        as={Link}
+                                                        to="/bike/:id"
+                                                    >
                                                         view
                                                     </Button>
                                                 </Card.Body>
@@ -236,13 +231,14 @@ export default function AllBikesPage() {
                                 responsive={responsive}
                                 autoPlay={false}
                                 swipeable={false}
-                                draggable={true}
+                                draggable={false}
                                 showDots={true}
                                 infinite={false}
                                 partialVisible={false}
+                                ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sliderImageUrl.map((imageUrl, index) => {
+                                {cruiserBikesData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -254,14 +250,18 @@ export default function AllBikesPage() {
                                                 <Card.Img
                                                     id="cardImage"
                                                     variant="top"
-                                                    src={imageUrl.url}
+                                                    src={bike.images[0].url}
                                                 />
                                                 <Card.Body>
-                                                    <Card.Title>Bike Name {index}</Card.Title>
+                                                    <Card.Title>{`${bike.make} ${bike.model} (${bike.year})`}</Card.Title>
                                                     <Card.Text>
-                                                        Description - Some quick example text
+                                                        {bike.description}
                                                     </Card.Text>
-                                                    <Button variant="outline-light" as={Link} to="/">
+                                                    <Button
+                                                        variant="outline-light"
+                                                        as={Link}
+                                                        to="/bike/:id"
+                                                    >
                                                         view
                                                     </Button>
                                                 </Card.Body>
@@ -281,13 +281,14 @@ export default function AllBikesPage() {
                                 responsive={responsive}
                                 autoPlay={false}
                                 swipeable={false}
-                                draggable={true}
+                                draggable={false}
                                 showDots={true}
                                 infinite={false}
                                 partialVisible={false}
+                                ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sliderImageUrl.map((imageUrl, index) => {
+                                {retroBikesData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -299,14 +300,18 @@ export default function AllBikesPage() {
                                                 <Card.Img
                                                     id="cardImage"
                                                     variant="top"
-                                                    src={imageUrl.url}
+                                                    src={bike.images[0].url}
                                                 />
                                                 <Card.Body>
-                                                    <Card.Title>Bike Name {index}</Card.Title>
+                                                    <Card.Title>{`${bike.make} ${bike.model} (${bike.year})`}</Card.Title>
                                                     <Card.Text>
-                                                        Description - Some quick example text
+                                                        {bike.description}
                                                     </Card.Text>
-                                                    <Button variant="outline-light" as={Link} to="/">
+                                                    <Button
+                                                        variant="outline-light"
+                                                        as={Link}
+                                                        to="/bike/:id"
+                                                    >
                                                         view
                                                     </Button>
                                                 </Card.Body>
@@ -322,3 +327,14 @@ export default function AllBikesPage() {
         </Container>
     );
 }
+
+
+// export const handleCategoryLink = (categoryLink) => {
+//     console.log(categoryLink);
+//     // const element = document.getElementById(categoryLink);
+//     // element.click();
+//     // document.getElementById('touringBikes').click();
+
+//     // let element = document.getElementById(target.id);
+//     // element.classList.add('active');
+// };
