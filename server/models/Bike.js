@@ -27,12 +27,18 @@ const bikeSchema = new Schema({
     type: Number,
     required: true
   },
+  availability: {
+    type: Boolean,
+    required: true
+  },
   images: [imageSchema],
   category: {
     type: String,
     required: true
   },
-  contracts: [{ type: Schema.Types.ObjectId, ref: 'Contract' }]
+  contracts: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'Contract' }]
 });
 
 const Bike = model('Bike', bikeSchema);

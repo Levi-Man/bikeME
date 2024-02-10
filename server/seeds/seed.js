@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Bike, User, Contract } = require('../models');
+const { Bike, User, Contract, Category } = require('../models');
 const { calculateInsuranceQuote } = require('../models/Insurance')
 
 
@@ -17,32 +17,65 @@ mongoose.connection.once('connected', async () => {
 const seedData = async () => {
   try {
     // Remove existing data
-    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany()]);
+    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany(), Category.deleteMany()]);
 
     // Insert new bikes
     const insertedBikes = await Bike.insertMany(bikesData);
 
+    categoriesData.forEach((c) => {
+      console.log(c)
+      let filteredBikes = insertedBikes.map((b) => {
+        let bikeIds = []
+        if (b.category == c.name) {
+          return b._id
+        }
+      }
+      )
+      let filteredCategoryBike = filteredBikes.filter((b) =>
+        b
+      )
+      console.log(filteredCategoryBike)
+      if (filteredCategoryBike.length > 0)
+        Category.create({ name: c.name, bikes: filteredCategoryBike })
+    })
+
     // Insert new users
     const insertedUsers = await User.insertMany(usersData);
 
-    // Retrieve the generated user and bike IDs
-    const bikeIds = insertedBikes.map(bike => bike._id);
-    const userIds = insertedUsers.map(user => user._id);
+    // // Insert categories
+    // const insertedCategories = await Category.insertMany(categoriesData)
+
+    // // Retrieve the generated user and bike names
+    // const bikeName = insertedBikes.map(bike => bike.model);
+    // const userName = insertedUsers.map(user => user.name);
+    // const categoryIds = insertedCategories.map(category => category._id);
 
     // Create contract objects with rentalPriceSub and rentalPriceTotal calculated
     const contracts = contractsData.map((contract, index) => {
-      const bikePricePerDay = insertedBikes[index].bikePricePerDay;
+      const bike = insertedBikes.find(bike => bike.model === contract.bikeName);
+      const user = insertedUsers.find(user => user.name === contract.user);
+
+      if (!bike) {
+        throw new Error(`Bike with name "${contract.bikeName}" not found`);
+      }
+
+      if (!user) {
+        throw new Error(`User with name "${contract.user}" not found`);
+      }
+
+      const bikePricePerDay = bike.bikePricePerDay;
       const insuranceQuotePerDay = calculateInsuranceQuote(
-        insertedUsers[index].age,
-        insertedUsers[index].yearsDriving,
+        user.age,
+        user.yearsDriving,
         bikePricePerDay
       );
       const rentalPriceSub = (bikePricePerDay + insuranceQuotePerDay) * contract.duration;
       const rentalPriceTotal = rentalPriceSub * 1.13; // Total with 13% HST
+
       return {
         ...contract,
-        user: userIds[index],
-        bike: bikeIds[index],
+        user: user._id, // Use user's _id
+        bike: bike._id, // Use bike's _id
         rentalPriceSub,
         rentalPriceTotal,
       };
@@ -56,7 +89,8 @@ const seedData = async () => {
     console.error('Error seeding data:', error);
   } finally {
     // Close database connection
-    mongoose.disconnect();
+    // mongoose.disconnect();
+    process.exit(0);
   }
 };
 
@@ -79,8 +113,9 @@ const bikesData = [
     year: 2021,
     mileage: 1000,
     description: 'Sportbike',
-    category: 'Sportbike',
+    category: 'Sport',
     bikePricePerDay: 50.99,
+    availability: true,
     images: [{ url: 'image1.jpg', description: 'Image 1' }, { url: 'image2.jpg', description: 'Image 2' }],
   },
   {
@@ -89,8 +124,9 @@ const bikesData = [
     year: 2020,
     mileage: 1500,
     description: 'Supersport',
-    category: 'Sportbike',
+    category: 'Sport',
     bikePricePerDay: 60.50,
+    availability: true,
     images: [{ url: 'image3.jpg', description: 'Image 3' }, { url: 'image4.jpg', description: 'Image 4' }],
   },
   {
@@ -99,8 +135,9 @@ const bikesData = [
     year: 2022,
     mileage: 800,
     description: 'Superbike',
-    category: 'Sportbike',
+    category: 'Sport',
     bikePricePerDay: 70.75,
+    availability: true,
     images: [{ url: 'image5.jpg', description: 'Image 5' }, { url: 'image6.jpg', description: 'Image 6' }],
   },
   {
@@ -111,6 +148,7 @@ const bikesData = [
     description: 'Adventure Touring',
     category: 'Adventure',
     bikePricePerDay: 90.25,
+    availability: true,
     images: [{ url: 'image7.jpg', description: 'Image 7' }, { url: 'image8.jpg', description: 'Image 8' }],
   },
   {
@@ -119,8 +157,9 @@ const bikesData = [
     year: 2019,
     mileage: 2000,
     description: 'Naked Bike',
-    category: 'Street',
+    category: 'Retro',
     bikePricePerDay: 75.90,
+    availability: true,
     images: [{ url: 'image9.jpg', description: 'Image 9' }, { url: 'image10.jpg', description: 'Image 10' }],
   },
   {
@@ -129,8 +168,9 @@ const bikesData = [
     year: 2020,
     mileage: 1200,
     description: 'Naked Bike',
-    category: 'Street',
+    category: 'Retro',
     bikePricePerDay: 65.75,
+    availability: true,
     images: [{ url: 'image11.jpg', description: 'Image 11' }, { url: 'image12.jpg', description: 'Image 12' }],
   },
   {
@@ -141,6 +181,7 @@ const bikesData = [
     description: 'Cruiser',
     category: 'Cruiser',
     bikePricePerDay: 85.50,
+    availability: true,
     images: [{ url: 'image13.jpg', description: 'Image 13' }, { url: 'image14.jpg', description: 'Image 14' }],
   },
   {
@@ -151,6 +192,7 @@ const bikesData = [
     description: 'Adventure Touring',
     category: 'Adventure',
     bikePricePerDay: 55.40,
+    availability: true,
     images: [{ url: 'image15.jpg', description: 'Image 15' }, { url: 'image16.jpg', description: 'Image 16' }],
   },
   {
@@ -159,8 +201,9 @@ const bikesData = [
     year: 2019,
     mileage: 1800,
     description: 'Superbike',
-    category: 'Sportbike',
+    category: 'Sport',
     bikePricePerDay: 80.25,
+    availability: true,
     images: [{ url: 'image17.jpg', description: 'Image 17' }, { url: 'image18.jpg', description: 'Image 18' }],
   },
   {
@@ -171,6 +214,7 @@ const bikesData = [
     description: 'Cruiser',
     category: 'Cruiser',
     bikePricePerDay: 70.00,
+    availability: true,
     images: [{ url: 'image19.jpg', description: 'Image 19' }, { url: 'image20.jpg', description: 'Image 20' }],
   },
 ];
@@ -207,24 +251,32 @@ const usersData = [
 
 const contractsData = [
   {
-    user: '',
-    bike: '',
+    username: 'john_doe',
+    bikeName: 'R1250GS',
     duration: 5,
     rentalPriceSub: '',
     rentalPriceTotal: '',
   },
   {
-    user: '',
-    bike: '',
+    username: 'jane_smith',
+    bikeName: 'Monster 821',
     duration: 3,
     rentalPriceSub: '',
     rentalPriceTotal: '',
   },
   {
-    user: '',
-    bike: '',
+    username: 'michael_johnson',
+    bikeName: 'Ninja ZX-10R',
     duration: 3,
     rentalPriceSub: '',
     rentalPriceTotal: '',
   },
+];
+
+const categoriesData = [
+  { name: 'Sport' },
+  { name: 'Cruiser' },
+  { name: 'Adventure' },
+  { name: 'Retro' },
+  { name: 'Touring' }
 ];
