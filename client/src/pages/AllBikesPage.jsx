@@ -13,21 +13,20 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../styles.css";
 
-
 const responsive = {
     desktop: {
-        breakpoint: { max: 3000, min: 1024 },
+        breakpoint: { max: 3000, min: 1400 },
         items: 3,
         slidesToSlide: 1, // optional, default to 1.
     },
     tablet: {
-        breakpoint: { max: 1024, min: 768 },
-        items: 3,
+        breakpoint: { max: 1400, min: 850 },
+        items: 2,
         slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
-        breakpoint: { max: 767, min: 464 },
-        items: 2,
+        breakpoint: { max: 850, min: 464 },
+        items: 1,
         slidesToSlide: 1, // optional, default to 1.
     },
 };
@@ -82,7 +81,9 @@ export default function AllBikesPage() {
                                 <row>
                                     <p>
                                         <br></br>
-                                        Scroll through our inventory and if you see a bike your like, click the view button to get more details on the bike and rental pricing.
+                                        Scroll through our inventory and if you see a bike your
+                                        like, click the view button to get more details on the bike
+                                        and rental pricing.
                                     </p>
                                 </row>
                             </div>
@@ -100,10 +101,10 @@ export default function AllBikesPage() {
                                 responsive={responsive}
                                 autoPlay={false}
                                 swipeable={false}
-                                draggable={true}
+                                draggable={false}
                                 showDots={true}
-                                infinite={true}
-                                partialVisible={true}
+                                infinite={false}
+                                partialVisible={false}
                                 dotListClass="custom-dot-list-style"
                             >
                                 {sliderImageUrl.map((imageUrl, index) => {
@@ -147,8 +148,8 @@ export default function AllBikesPage() {
                                 swipeable={false}
                                 draggable={true}
                                 showDots={true}
-                                infinite={true}
-                                partialVisible={true}
+                                infinite={false}
+                                partialVisible={false}
                                 dotListClass="custom-dot-list-style"
                             >
                                 {sliderImageUrl.map((imageUrl, index) => {
@@ -192,8 +193,8 @@ export default function AllBikesPage() {
                                 swipeable={false}
                                 draggable={true}
                                 showDots={true}
-                                infinite={true}
-                                partialVisible={true}
+                                infinite={false}
+                                partialVisible={false}
                                 dotListClass="custom-dot-list-style"
                             >
                                 {sliderImageUrl.map((imageUrl, index) => {
@@ -237,8 +238,8 @@ export default function AllBikesPage() {
                                 swipeable={false}
                                 draggable={true}
                                 showDots={true}
-                                infinite={true}
-                                partialVisible={true}
+                                infinite={false}
+                                partialVisible={false}
                                 dotListClass="custom-dot-list-style"
                             >
                                 {sliderImageUrl.map((imageUrl, index) => {
@@ -282,8 +283,8 @@ export default function AllBikesPage() {
                                 swipeable={false}
                                 draggable={true}
                                 showDots={true}
-                                infinite={true}
-                                partialVisible={true}
+                                infinite={false}
+                                partialVisible={false}
                                 dotListClass="custom-dot-list-style"
                             >
                                 {sliderImageUrl.map((imageUrl, index) => {

@@ -43,3 +43,11 @@ background: gold !important;
   background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(209,186,18,1) 35%); 
 
 }
+
+.accordion-header {
+  margin-top: 20px;
+}
+
+.accordion-body {
+  background-color: #f8f9fa;
+}

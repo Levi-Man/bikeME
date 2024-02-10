@@ -9,10 +9,12 @@ import 'react-bootstrap';
 import './index.css';
 
 import App from './App.jsx';
+
 import AboutPage from './pages/AboutPage.jsx';
 import AllBikesPage from './pages/AllBikesPage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
-import ResumePage from './pages/ResumePage.jsx';
+import SingleBikePage from './pages/SingleBikePage.jsx';
+import ContractPage from './pages/ContractPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 
 // setup the react router  and endpoints for index, and other pages
@@ -31,12 +33,16 @@ const router = createBrowserRouter([
         element: <AllBikesPage />,
       },
       {
-        path: 'contact',
-        element: <ContactPage />,
+        path: 'bike/:id',
+        element: <SingleBikePage />,
       },
       {
-        path: 'resume',
-        element: <ResumePage />,
+        path: 'contract',
+        element: <ContractPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
       },
     ],
   },
