@@ -43,11 +43,6 @@ export default function AllBikesPage() {
     const adventureBikesData = bikesData.filter((bike) => bike.category === 'Adventure');
     const cruiserBikesData = bikesData.filter((bike) => bike.category === 'Cruiser');
     const retroBikesData = bikesData.filter((bike) => bike.category === 'Retro');
-    console.log("sportBikesData", sportBikesData);
-    console.log("touringBikesData", touringBikesData);
-    console.log("adventureBikesData", adventureBikesData);
-    console.log("cruiserBikesData", cruiserBikesData);
-    console.log("retroBikesData", retroBikesData);
 
     return (
         <Container fluid>

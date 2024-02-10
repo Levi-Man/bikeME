@@ -56,6 +56,11 @@ background: gold !important;
   
 }
 
+.react-multiple-carousel__arrow--right{
+  margin-right: -50px;
+  
+}
+
 .react-multiple-carousel__arrow{
   background: rgb(2,0,36);
   background: radial-gradient(circle, rgba(2,0,36,1) 20%, rgba(209,186,18,1) 75%);
@@ -70,3 +75,6 @@ background: gold !important;
   
 }
 
+div.card.bg-dark.text-white{
+  margin: auto;
+}
