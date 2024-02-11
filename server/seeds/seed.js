@@ -17,27 +17,27 @@ mongoose.connection.once('connected', async () => {
 const seedData = async () => {
   try {
     // Remove existing data
-    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany(), Category.deleteMany()]);
+    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany()]);
 
     // Insert new bikes
     const insertedBikes = await Bike.insertMany(bikesData);
 
-    categoriesData.forEach((c) => {
-      console.log(c)
-      let filteredBikes = insertedBikes.map((b) => {
-        let bikeIds = []
-        if (b.category == c.name) {
-          return b._id
-        }
-      }
-      )
-      let filteredCategoryBike = filteredBikes.filter((b) =>
-        b
-      )
-      console.log(filteredCategoryBike)
-      if (filteredCategoryBike.length > 0)
-        Category.create({ name: c.name, bikes: filteredCategoryBike })
-    })
+    // categoriesData.forEach((c) => {
+    //   console.log(c)
+    //   let filteredBikes = insertedBikes.map((b) => {
+    //     let bikeIds = []
+    //     if (b.category == c.name) {
+    //       return b._id
+    //     }
+    //   }
+    //   )
+    //   let filteredCategoryBike = filteredBikes.filter((b) =>
+    //     b
+    //   )
+    //   console.log(filteredCategoryBike)
+    //   if (filteredCategoryBike.length > 0)
+    //     Category.create({ name: c.name, bikes: filteredCategoryBike })
+    // })
 
     // Insert new users
     const insertedUsers = await User.insertMany(usersData);
@@ -437,8 +437,8 @@ const usersData = [
     lastName: 'Doe',
     email: 'john.doe@example.com',
     password: 'password123',
-    licenseDate: new Date('2020-01-01'),
-    dateOfBirth: new Date('1990-01-01'),
+    yearsDriving: 10,
+    age: 40,
   },
   {
     username: 'jane_smith',
@@ -446,8 +446,8 @@ const usersData = [
     lastName: 'Smith',
     email: 'jane.smith@example.com',
     password: 'password456',
-    licenseDate: new Date('2018-05-15'),
-    dateOfBirth: new Date('1985-06-20'),
+    yearsDriving: 3,
+    age: 22,
   },
   {
     username: 'michael_johnson',
@@ -455,39 +455,39 @@ const usersData = [
     lastName: 'Johnson',
     email: 'michael.johnson@example.com',
     password: 'password789',
-    licenseDate: new Date('2019-08-10'),
-    dateOfBirth: new Date('1995-03-12'),
+    yearsDriving: 5,
+    age: 27,
   },
 ];
 
-const contractsData = [
-  {
-    username: 'john_doe',
-    bikeName: 'R1250GS',
-    duration: 5,
-    rentalPriceSub: '',
-    rentalPriceTotal: '',
-  },
-  {
-    username: 'jane_smith',
-    bikeName: 'Monster 821',
-    duration: 3,
-    rentalPriceSub: '',
-    rentalPriceTotal: '',
-  },
-  {
-    username: 'michael_johnson',
-    bikeName: 'Ninja ZX-10R',
-    duration: 3,
-    rentalPriceSub: '',
-    rentalPriceTotal: '',
-  },
-];
+// const contractsData = [
+//   {
+//     username: 'john_doe',
+//     bikeName: 'R1250GS',
+//     duration: 5,
+//     rentalPriceSub: '',
+//     rentalPriceTotal: '',
+//   },
+//   {
+//     username: 'jane_smith',
+//     bikeName: 'Monster 821',
+//     duration: 3,
+//     rentalPriceSub: '',
+//     rentalPriceTotal: '',
+//   },
+//   {
+//     username: 'michael_johnson',
+//     bikeName: 'Ninja ZX-10R',
+//     duration: 3,
+//     rentalPriceSub: '',
+//     rentalPriceTotal: '',
+//   },
+// ];
 
-const categoriesData = [
-  { name: 'Sport' },
-  { name: 'Cruiser' },
-  { name: 'Adventure' },
-  { name: 'Retro' },
-  { name: 'Touring' }
-];
+// const categoriesData = [
+//   { name: 'Sport' },
+//   { name: 'Cruiser' },
+//   { name: 'Adventure' },
+//   { name: 'Retro' },
+//   { name: 'Touring' }
+// ];

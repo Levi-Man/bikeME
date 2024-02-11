@@ -4,16 +4,28 @@ const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
-    me: async (parent, args, { user }) => {
-      if (!user) {
-        throw new Error('You are not authenticated!');
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('contracts');
+      }
+      throw AuthenticationError;
+    },
+
+    //get single user
+    user: async (parent, { userId }) => {
+      return User.findOne({_id: userId }).populate('contracts');
+    },
+
+    //get all users
+    users: async () => {
+      const userData = await User.find().populate('contracts');
+      if (!userData) {
+        throw new Error('No bikes found!');
       }
       try {
-        // Fetch the user's data including contracts
-        const userData = await User.findById(user._id).populate('contracts');
         return userData;
       } catch (error) {
-        throw new Error('Failed to fetch user data');
+        throw new Error('Failed to fetch bike data');
       }
     },
 
@@ -29,21 +41,22 @@ const resolvers = {
         throw new Error('Failed to fetch bike data');
       }
     },
-
-    //filter by category
+    
+    
+    // //filter by category
     bikesCategories: async (parent, {bikeCategory}) => {
-      const bikeData = await Bike.find({category: bikeCategory});
-      if (!bikeData) {
-        throw new Error('No bikes found!');
-      }
-      try {
-        return bikeData;
-      } catch (error) {
-        throw new Error('Failed to fetch bike data');
-      }
-    },
-
-
+        const bikeData = await Bike.find({category: bikeCategory});
+        if (!bikeData) {
+            throw new Error('No bikes found!');
+          }
+          try {
+              return bikeData;
+            } catch (error) {
+                throw new Error('Failed to fetch bike data');
+              }
+            },
+    
+    
     //get single bike
     bike: async (parent, { bikeId }) => {
       const bikeData = await Bike.findOne({ _id: bikeId });
@@ -56,25 +69,11 @@ const resolvers = {
         throw new Error('Failed to fetch bike data');
       }
     },
-
-    categories: async () => {
-
-      const categoryData = await Category.find({}).populate('bikes');
-
-      if (!categoryData) {
-        throw new Error('No Categories Found!');
-      }
-      try {
-        return categoryData;
-      } catch (error) {
-        throw new Error('Failed to fetch Categories');
-      }
-    },
   },
   Mutation: {
     // Resolver for creating a user, signing a token, and sending it back
-    addUser: async (parent, { username, email, password,dateOfBirth, licenseDate }, context) => {
-      const user = await User.create({ username, email, password, dateOfBirth, licenseDate });
+    addUser: async (parent, { username, email, password, age, yearsDriving }, context) => {
+      const user = await User.create({ username, email, password, age, yearsDriving });
 
       if (!user) {
         throw new AuthenticationError('Something is wrong!');
@@ -102,10 +101,10 @@ const resolvers = {
       return { token, user };
     },
 
-    createContract: async (parent, { userId, bikeId, duration }, context) => {
+    createContract: async (parent, { userName, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       // if (context.user) {
-        return await Contract.create({userId,bikeId,duration});
+        return await Contract.create({  userName: context.user.username, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal });
       // }
       // If user attempts to execute this mutation and isn't logged in, throw an error
       // throw AuthenticationError;
@@ -120,16 +119,6 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-  },
-  User: {
-    contracts: async (parent) => {
-      try {
-        const contracts = await Contract.find({ user: parent._id });
-        return contracts;
-      } catch (error) {
-        throw new Error('Failed to fetch contracts');
-      }
-    },
   },
 };
 

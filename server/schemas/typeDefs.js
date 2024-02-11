@@ -1,29 +1,31 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Query {
-    me: User
-    users: [User]
-    bikes: [Bike]
-    bike(bikeId: ID!): Bike
-    contracts: [Contract]
-
-    #made this plural
-    categories: [Category]
+type Query {
+  me: User
+  users: [User]
+  user(userId: ID!): User
+  bikes: [Bike]
+  bikesCategories(bikeCategory: String!): [Bike]
+  bike(bikeId: ID!): Bike
+  contracts: [Contract]
 }
 
-  type Mutation {
-    login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-  }
+type Mutation {
+  login(email: String!, password: String!): Auth
+  addUser(username: String!, email: String!, password: String!, age: Int!, yearsDriving: Int!): Auth
+  #createContract(userName: String!, bikeInfo: String!, rentalPerDay: Float!, insurancePerDay: #Float!, duration: Int!, rentalPriceSub: Float!, rentalPriceTotal: Float!): Contract
+  createContract(bikeInfo: String!, rentalPerDay: Float!, insurancePerDay: Float!, duration: Int!, rentalPriceSub: Float!, rentalPriceTotal: Float!): Contract
+  addContractToUser(contractId: ID!): User
+}
 
   type User {
     _id: ID!
     username: String!
     email: String!
     password: String!
-    dateOfBirth: String
-    licenseDate: String
+    age: Int!
+    yearsDriving: Int!
     contracts: [Contract]
   }
 
@@ -47,28 +49,25 @@ const typeDefs = gql`
   type Insurance {
    _id: ID!
    createdAt: String
-   user: ID
-   bike: ID
+   userAge: Int!
+   rentalPerDay: Float!
+   yearsDriving: Int!
    insuranceQuotePerDay: Float!
   }
-
+  
   type Contract { 
     _id: ID!
     createdAt: String
-    user: ID
-    bike: ID
+    userName: String
+    bikeInfo: String!
+    rentalPerDay: Float!
+    insurancePerDay: Float!
     duration: Int!
     rentalPriceSub: Float!
     rentalPriceTotal: Float!
   }
 
   #edited the schema to add the bikes
-
-  type Category {
-    _id: ID!
-    name: String
-    bikes: [Bike]
-  }
 
   type Auth {
     token: ID!

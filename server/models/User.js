@@ -22,14 +22,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    dateOfBirth: {
-     type: Date,
+    age: {
+     type: Number,
      required: true,
-     get: (timestamp) => dateFormat(timestamp), //TODO: Change this when you figure it out
-     
     }, 
-    licenseDate: {
-      type: Date, 
+    yearsDriving: {
+      type: Number, 
       required: true,
     },
       contracts: [{type: Schema.Types.ObjectId, ref: 'Contract'}],
@@ -41,30 +39,6 @@ const userSchema = new Schema(
     },
   }
 );
-
-// virtual property to compute age
-userSchema.virtual('age').get(function() {
-  const currentDate = new Date();
-  const birthDate = new Date(this.dateOfBirth);
-  const age = currentDate.getFullYear() - birthDate.getFullYear();
-  const monthDifference = currentDate.getMonth() - birthDate.getMonth();
-  if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
-    return age - 1;
-  }
-  return age;
-});
-
-// virtual property to compute years driving
-userSchema.virtual('yearsDriving').get(function() {
-  const currentDate = new Date();
-  const firstLicenseDate = new Date(this.licenseDate);
-  const yearsDriving = currentDate.getFullYear() - firstLicenseDate.getFullYear();
-  const monthDifference = currentDate.getMonth() - firstLicenseDate.getMonth();
-  if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < firstLicenseDate.getDate())) {
-    return yearsDriving - 1;
-  }
-  return yearsDriving;
-});
 
 // hash user password
 userSchema.pre('save', async function (next) {
