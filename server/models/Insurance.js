@@ -1,5 +1,5 @@
 //Edited the import and changed it to types since it is a schema and not a model
-const { Schema, Types } = require('mongoose');
+const { Schema, model} = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 //Edited the schema to include the default id
@@ -15,16 +15,21 @@ const insuranceSchema = new Schema({
         default: Date.now,
         get: (timestamp) => dateFormat(timestamp),
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+    
+    userAge:{
+        type: Number,
+    },
+
+    rentalPerDay: {
+        type: Number,
         required: true
     },
-    bike: {
-        type: Schema.Types.ObjectId,
-        ref: 'Bike',
+
+    yearsDriving:{
+        type: Number,
         required: true
-    },
+    }, 
+
     insuranceQuotePerDay: {
         type: Number,
         required: true,
@@ -34,33 +39,27 @@ const insuranceSchema = new Schema({
     // calculation for insurance quote
     // return insurance quote per day
 });
-insuranceSchema.pre('save', async function (next, {User, Bike}) {
-    try {
-        const user = await User.findById(this.user);
-        const bike = await Bike.findById(this.bike);
-        if (!user || !bike) {
-            throw new Error('User or bike not found');
-        }
-        // Calculate insurance quote per day using calculateInsuranceQuote method
-        this.insuranceQuotePerDay = this.calculateInsuranceQuote(user.age, user.yearsDriving, bike.bikePricePerDay);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
-
-// Calculate insurance
-function calculateInsuranceQuote(age, yearsDriving, bikePricePerDay) {
+insuranceSchema.pre('save', async function () {
     const basePremium = 50; // Base premium amount
-    const ageFactor = age >= 25 ? 0.8 : 1.2; // Adjust premium based on age
-    const drivingFactor = yearsDriving > 5 ? 0.9 : 1.1; // Adjust premium based on driving experience
-    const priceFactor = bikePricePerDay / 1000; // Adjust premium based on bike price per day
+    const ageFactor = this.userAge >= 25 ? 0.8 : 1.2; // Adjust premium based on age
+    const drivingFactor = this.yearsDriving > 5 ? 0.9 : 1.1; // Adjust premium based on driving experience
+    const priceFactor = this.rentalPerDay / 1000; // Adjust premium based on bike price per day
 
     // Perform calculation based on age, yearsDriving, and bikePricePerDay
-    return basePremium * ageFactor * drivingFactor * priceFactor;
-};
+    this.insuranceQuotePerDay =  basePremium * ageFactor * drivingFactor * priceFactor;
+});
 
-module.exports = {
-    insuranceSchema,
-    calculateInsuranceQuote
-};
+// // Calculate insurance
+// function calculateInsuranceQuote(age, yearsDriving, bikePricePerDay) {
+//     const basePremium = 50; // Base premium amount
+//     const ageFactor = age >= 25 ? 0.8 : 1.2; // Adjust premium based on age
+//     const drivingFactor = yearsDriving > 5 ? 0.9 : 1.1; // Adjust premium based on driving experience
+//     const priceFactor = bikePricePerDay / 1000; // Adjust premium based on bike price per day
+
+//     // Perform calculation based on age, yearsDriving, and bikePricePerDay
+//     return basePremium * ageFactor * drivingFactor * priceFactor;
+// };
+
+const Insurance = model('Insurance', insuranceSchema)
+
+module.exports = Insurance;
