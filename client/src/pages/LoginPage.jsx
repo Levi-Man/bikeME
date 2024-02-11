@@ -38,10 +38,17 @@ export default function LoginPage() {
     const [registerPassword, setRegisterPassword] = useState('');
     const [age, setAge] = useState('');
     const [yearsDriving, setYearsDriving] = useState('');
-    const [showAlert, setShowAlert] = useState(false)
+    const [validated] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
     // const [justifyActive, setJustifyActive] = useState('tab1');;
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        if (!loginEmail || !loginPassword) {
+            return;
+        }
+
         try {
             const { data } = await loginUser({
                 variables: { email: loginEmail, password: loginPassword },
@@ -54,15 +61,17 @@ export default function LoginPage() {
         }
     };
 
-    const handleRegister = async () => {
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
         try {
             const { data } = await addUser({
-                variables: { 
-                    username: userName, 
-                    email: registerEmail, 
-                    password: registerPassword, 
-                    age: parseInt(age), 
-                    yearsDriving: parseInt(yearsDriving) 
+                variables: {
+                    username: userName,
+                    email: registerEmail,
+                    password: registerPassword,
+                    age: parseInt(age),
+                    yearsDriving: parseInt(yearsDriving)
                 },
             });
             const { token } = data.addUser;
@@ -96,7 +105,10 @@ export default function LoginPage() {
                                 value={loginPassword}
                                 onChange={(e) => setLoginPassword(e.target.value)}
                             />
-                            <MDBBtn className="mb-4" onClick={handleLogin}>Login in</MDBBtn>
+                            <MDBBtn className="mb-4"
+                                onClick={handleLogin}>
+                                Login in
+                            </MDBBtn>
                         </MDBContainer>
                     </Col>
 

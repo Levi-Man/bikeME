@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
     Container,
     Row,
@@ -9,25 +9,19 @@ import {
     Carousel,
     Image,
     ListGroup,
-    Badge
+    Badge,
 } from "react-bootstrap";
-import '../singleView.css';
+import "../singleView.css";
 import { useRentalContext } from "../utils/GlobalContext";
 // import bikesData from "../utils/SampleSeedData";
 
-
-
-
-
 export default function SingleBikePage() {
-
-
     const { AllBikes } = useRentalContext();
     const { id } = useParams();
 
     const currentBikeData = AllBikes.filter((bike) => bike._id === id);
 
-    const [justifyActive, setJustifyActive] = useState('tab1');;
+    const [justifyActive, setJustifyActive] = useState("tab1");
 
     const handleJustifyClick = (value) => {
         if (value === justifyActive) {
@@ -37,29 +31,29 @@ export default function SingleBikePage() {
         setJustifyActive(value);
     };
 
-
     const [rentalTerm, setRentalTerm] = useState(1);
 
     const handleRentalTerm = (e) => {
         const { target } = e;
         setRentalTerm(target.valueAsNumber);
-    }
-
+    };
 
     const singleBikeUrls = currentBikeData[0].images.map((image) => image.url);
 
-
-
     return (
-        <Container >
-            <div className='myOutlet'>
+        <Container>
+            <div className="myOutlet">
                 <Row className="justify-content-md-center">
                     <Col md={10}>
                         <Carousel fade data-bs-theme="dark">
                             {singleBikeUrls.map((imageUrl, index) => {
                                 return (
                                     <Carousel.Item interval={3000}>
-                                        <Image className="single-bike-image" src={imageUrl} text="First slide" />
+                                        <Image
+                                            className="single-bike-image"
+                                            src={imageUrl}
+                                            text="First slide"
+                                        />
                                     </Carousel.Item>
                                 );
                             })}
@@ -67,7 +61,7 @@ export default function SingleBikePage() {
                     </Col>
 
                     <Col md={10}>
-                        <Card >
+                        <Card>
                             <Card.Header>Rental Details</Card.Header>
                             <Card.Body>
                                 <Card.Title>{ }</Card.Title>
@@ -127,7 +121,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Availability</div>
                                                     </div>
-                                                    {currentBikeData[0].availability ? 'Yes' : 'No'}
+                                                    {currentBikeData[0].availability ? "Yes" : "No"}
                                                 </ListGroup.Item>
                                             </ListGroup>
                                         </Col>
@@ -182,7 +176,14 @@ export default function SingleBikePage() {
                                                     as="li"
                                                     className="d-flex justify-content-between align-items-start"
                                                 >
-                                                    <input type="range" className="form-range" min="1" max="7" defaultValue={1} onChange={handleRentalTerm}></input>
+                                                    <input
+                                                        type="range"
+                                                        className="form-range"
+                                                        min="1"
+                                                        max="7"
+                                                        defaultValue={1}
+                                                        onChange={handleRentalTerm}
+                                                    ></input>
                                                 </ListGroup.Item>
                                             </ListGroup>
                                         </Col>
@@ -190,19 +191,15 @@ export default function SingleBikePage() {
                                     <div className="text-center ms-2 me-auto">
                                         <div className="fw-bold">{`Total Rental Price: login required`}</div>
                                     </div>
-
                                 </Card.Text>
                             </Card.Body>
-                            <Button id="rentButton" variant="danger" as={Link} to="/contract" >Click here to Rent Bike</Button>
+                            <Button id="rentButton" variant="danger" as={Link} to="/contract">
+                                Click here to Rent Bike
+                            </Button>
                         </Card>
                     </Col>
                 </Row>
-
             </div>
         </Container>
     );
 }
-
-
-
-
