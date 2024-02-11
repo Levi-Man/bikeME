@@ -1,6 +1,9 @@
 // Bringing in the required import from 'react-router-dom'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries'
 import { HashLink } from 'react-router-hash-link';
+import Auth from '../utils/auth';
 
 import logo from "../assets/site-logo.png";
 import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap';
@@ -9,8 +12,11 @@ import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 're
 
 export default function Navigation() {
 
+    const history = useNavigate(); // Initialize useHistory hook
 
+    const { loading, error, data } = useQuery(QUERY_ME);
 
+    // console.log(QUERY_ME)
     return (
 
         <Navbar sticky='top' bg="dark" data-bs-theme="dark">
@@ -53,9 +59,13 @@ export default function Navigation() {
                             Retro
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link as={Link} to="/login" eventKey="/login">
-                        Login
-                    </Nav.Link>
+                    {/* Conditional rendering for login/logout button */}
+                    {Auth.loggedIn() ? (
+                        <Nav.Link as={Link} to="/" eventKey="/" onClick={Auth.logout}>Logout</Nav.Link>
+
+                    ) : (
+                        <Nav.Link as={Link} to="/login" eventKey="/login">Login</Nav.Link>
+                    )}
                 </Nav>
             </Container>
         </Navbar>

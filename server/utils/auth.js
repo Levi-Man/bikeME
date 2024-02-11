@@ -11,28 +11,26 @@ module.exports = {
     },
   }),
   authMiddleware: function ({ req }) {
-    // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
-
-    // We split the token string into an array and return actual token
+  
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
-
+  
     if (!token) {
-      return req;
+      return req; // No token provided, proceed with unauthenticated request
     }
-
-    // if token can be verified, add the decoded user's data to the request so it can be accessed in the resolver
+  
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log('Invalid token');
+      req.user = data; // Token is valid, add decoded user data to the request
+    } catch (error) {
+      // Token verification failed
+      console.error('Failed to verify token:', error.message);
+      throw new AuthenticationError('Failed to authenticate user. Please provide a valid token.');
     }
-
-    // return the request object so it can be passed to the resolver as `context`
-    return req;
+  
+    return req; // Return the modified request object
   },
   signToken: function ({ email, name, _id }) {
     const payload = { email, name, _id };

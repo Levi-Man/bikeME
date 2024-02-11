@@ -39,7 +39,7 @@ const responsive = {
 // default export function for portfolio component
 export default function AllBikesPage() {
 
-    const { AllBikes } = useRentalContext();
+    const { AllBikes } = useRentalContext(); // this hook needs to be inside a function
 
     const sportBikeData = AllBikes.filter((bike) => bike.category === 'Sport');
     const touringBikeData = AllBikes.filter((bike) => bike.category === 'Touring');
