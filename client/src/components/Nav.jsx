@@ -9,6 +9,8 @@ import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 're
 
 export default function Navigation() {
 
+
+
     return (
 
         <Navbar sticky='top' bg="dark" data-bs-theme="dark">
@@ -38,16 +40,16 @@ export default function Navigation() {
                         <NavDropdown.Item as={HashLink} to="/bikes#sportBikes" eventKey="/bikes#sportBikes" >
                             Sport
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#touringBikes" eventKey="/bikes#touringBikes">
+                        <NavDropdown.Item as={HashLink} to="/bikes#touringBikes" eventKey="/bikes#touringBikes" >
                             Touring
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#adventureBikes" eventKey="/bikes#adventureBikes">
+                        <NavDropdown.Item as={HashLink} to="/bikes#adventureBikes" eventKey="/bikes#adventureBikes" >
                             Adventure
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#cruiserBikes" eventKey="/bikes#cruiserBikes">
+                        <NavDropdown.Item as={HashLink} to="/bikes#cruiserBikes" eventKey="/bikes#cruiserBikes" >
                             Cruiser
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#retroBikes" eventKey="/bikes#retroBikes">
+                        <NavDropdown.Item as={HashLink} to="/bikes#retroBikes" eventKey="/bikes#retroBikes" >
                             Retro
                         </NavDropdown.Item>
                     </NavDropdown>

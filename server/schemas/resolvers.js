@@ -13,7 +13,7 @@ const resolvers = {
 
     //get single user
     user: async (parent, { userId }) => {
-      return User.findOne({_id: userId }).populate('contracts');
+      return User.findOne({ _id: userId }).populate('contracts');
     },
 
     //get all users
@@ -41,22 +41,22 @@ const resolvers = {
         throw new Error('Failed to fetch bike data');
       }
     },
-    
-    
+
+
     // //filter by category
-    bikesCategories: async (parent, {bikeCategory}) => {
-        const bikeData = await Bike.find({category: bikeCategory});
-        if (!bikeData) {
-            throw new Error('No bikes found!');
-          }
-          try {
-              return bikeData;
-            } catch (error) {
-                throw new Error('Failed to fetch bike data');
-              }
-            },
-    
-    
+    bikesCategories: async (parent, { bikeCategory }) => {
+      const bikeData = await Bike.find({ category: bikeCategory });
+      if (!bikeData) {
+        throw new Error('No bikes found!');
+      }
+      try {
+        return bikeData;
+      } catch (error) {
+        throw new Error('Failed to fetch bike data');
+      }
+    },
+
+
     //get single bike
     bike: async (parent, { bikeId }) => {
       const bikeData = await Bike.findOne({ _id: bikeId });
@@ -104,7 +104,7 @@ const resolvers = {
     createContract: async (parent, { userName, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       // if (context.user) {
-        return await Contract.create({  userName: context.user.username, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal });
+      return await Contract.create({ userName: context.user.username, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal });
       // }
       // If user attempts to execute this mutation and isn't logged in, throw an error
       // throw AuthenticationError;

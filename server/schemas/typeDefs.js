@@ -39,6 +39,7 @@ type Mutation {
     bikePricePerDay: Float!
     images: [Image!]!
     category: String
+    availability: Boolean
   }
 
   type Image {

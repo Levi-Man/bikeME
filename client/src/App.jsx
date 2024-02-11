@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Auth from "./utils/auth";
+import { RentalProvider } from "./utils/GlobalContext";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -30,6 +31,7 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
+
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
@@ -41,9 +43,11 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Navigation />
-        <Outlet />
-        <Footer />
+        <RentalProvider>
+          <Navigation />
+          <Outlet />
+          <Footer />
+        </RentalProvider>
       </ApolloProvider>
     </>
   );
