@@ -1,5 +1,5 @@
 // import all image resources for card displays
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
     Container,
@@ -33,16 +33,28 @@ const responsive = {
     },
 };
 
+let bikeCategory;
+
+export const bikeCategoryHandler = (categoryFromNav) => {
+    bikeCategory = categoryFromNav;
+}
 
 // default export function for portfolio component
 export default function AllBikesPage() {
+
+
+
     const [open, setOpen] = useState(false);
-    //   console.log(bikesData);
+
     const sportBikesData = bikesData.filter((bike) => bike.category === 'Sport');
     const touringBikesData = bikesData.filter((bike) => bike.category === 'Touring');
     const adventureBikesData = bikesData.filter((bike) => bike.category === 'Adventure');
     const cruiserBikesData = bikesData.filter((bike) => bike.category === 'Cruiser');
     const retroBikesData = bikesData.filter((bike) => bike.category === 'Retro');
+
+
+
+
 
     return (
         <Container fluid>
@@ -70,8 +82,8 @@ export default function AllBikesPage() {
                     <Accordion.Item id="sportBikes" eventKey="0">
                         <Accordion.Header>
                             <h2>Sport</h2>
-                        </Accordion.Header>
-                        <Accordion.Body>
+                        </Accordion.Header >
+                        <Accordion.Body >
                             <Carousel
                                 responsive={responsive}
                                 autoPlay={false}
@@ -322,14 +334,3 @@ export default function AllBikesPage() {
         </Container>
     );
 }
-
-
-// export const handleCategoryLink = (categoryLink) => {
-//     console.log(categoryLink);
-//     // const element = document.getElementById(categoryLink);
-//     // element.click();
-//     // document.getElementById('touringBikes').click();
-
-//     // let element = document.getElementById(target.id);
-//     // element.classList.add('active');
-// };
