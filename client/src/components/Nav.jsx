@@ -1,5 +1,5 @@
 // Bringing in the required import from 'react-router-dom'
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries'
 import { HashLink } from 'react-router-hash-link';
@@ -12,16 +12,11 @@ import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 're
 
 export default function Navigation() {
 
-    const history = useNavigate (); // Initialize useHistory hook
-    
+    const history = useNavigate(); // Initialize useHistory hook
+
     const { loading, error, data } = useQuery(QUERY_ME);
 
-    console.log(data);
-    const handleLogout = () => {
-        Auth.logout();
-        history.push('/login');
-    }
-
+    // console.log(QUERY_ME)
     return (
 
         <Navbar sticky='top' bg="dark" data-bs-theme="dark">
@@ -65,8 +60,8 @@ export default function Navigation() {
                         </NavDropdown.Item>
                     </NavDropdown>
                     {/* Conditional rendering for login/logout button */}
-                    {!loading && data ? (
-                        <Nav.Link as={Link} to="/" eventKey="/" onClick={handleLogout}>Logout</Nav.Link>
+                    {Auth.loggedIn() ? (
+                        <Nav.Link as={Link} to="/" eventKey="/" onClick={Auth.logout}>Logout</Nav.Link>
 
                     ) : (
                         <Nav.Link as={Link} to="/login" eventKey="/login">Login</Nav.Link>

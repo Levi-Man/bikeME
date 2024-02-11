@@ -50,11 +50,12 @@ export default function LoginPage() {
         }
 
         try {
-            const { data } = await loginUser({
+            const response = await loginUser({
                 variables: { email: loginEmail, password: loginPassword },
             });
-            const { token } = data.login;
+            const { token, user } = response.data.login;
             Auth.login(token);
+            console.log(user);
         } catch (err) {
             console.error(err);
             setShowAlert(true);
@@ -106,6 +107,7 @@ export default function LoginPage() {
                                 onChange={(e) => setLoginPassword(e.target.value)}
                             />
                             <MDBBtn className="mb-4"
+                             disabled={!(loginEmail && loginPassword)}
                                 onClick={handleLogin}>
                                 Login in
                             </MDBBtn>
@@ -149,7 +151,12 @@ export default function LoginPage() {
                                 type='number'
                                 onChange={(e) => setYearsDriving(e.target.value)}
                             />
-                            <MDBBtn className="mb-4" onClick={handleRegister}>Register</MDBBtn>
+                            <MDBBtn className="mb-4"
+                            disabled={!(userName && registerEmail && registerPassword && age && yearsDriving)}
+                                onClick={handleRegister}
+                            >
+                                Register
+                            </MDBBtn>
                         </MDBContainer>
                     </Col>
                 </Row>
