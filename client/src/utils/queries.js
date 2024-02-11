@@ -65,7 +65,10 @@ export const QUERY_SINGLE_BIKE = gql`
       mileage
       description
       bikePricePerDay
-      images
+      images {
+        url
+        description
+      }
       category 
     }
   }

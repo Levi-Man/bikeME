@@ -1,5 +1,5 @@
-const { User, Contract,Bike, Category } = require('../models');
-const  {signToken}  = require('../utils/auth');
+const { User, Contract, Bike, Category } = require('../models');
+const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
@@ -57,11 +57,11 @@ const resolvers = {
       }
     },
 
-    categories: async () =>{
+    categories: async () => {
 
       const categoryData = await Category.find({}).populate('bikes');
 
-      if(!categoryData){
+      if (!categoryData) {
         throw new Error('No Categories Found!');
       }
       try {
@@ -69,7 +69,7 @@ const resolvers = {
       } catch (error) {
         throw new Error('Failed to fetch Categories');
       }
-    }
+    },
   },
   Mutation: {
     // Resolver for creating a user, signing a token, and sending it back

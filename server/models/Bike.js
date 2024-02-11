@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const imageSchema = require('./Image');
+// const imageSchema = require('./Image');
 
 const bikeSchema = new Schema({
   make:
@@ -31,14 +31,24 @@ const bikeSchema = new Schema({
     type: Boolean,
     required: true
   },
-  images: [imageSchema],
+  images: [{
+    url: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    }
+  }],
   category: {
     type: String,
     required: true
   },
-  contracts: [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'Contract' }]
+  contracts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Contract'
+  }]
 });
 
 const Bike = model('Bike', bikeSchema);
