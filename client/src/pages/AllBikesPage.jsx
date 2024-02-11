@@ -1,5 +1,5 @@
 // import all image resources for card displays
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
     Container,
@@ -12,9 +12,10 @@ import {
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../styles.css";
-import bikesData from "../utils/SampleSeedData";
-// import { useQuery } from "@apollo/client";
-// import { QUERY_BIKES, QUERY_SINGLE_BIKE } from "../utils/queries";
+import { useRentalContext } from "../utils/GlobalContext";
+// import bikesData from "../utils/SampleSeedData";
+
+
 
 const responsive = {
     desktop: {
@@ -38,22 +39,20 @@ const responsive = {
 // default export function for portfolio component
 export default function AllBikesPage() {
 
-    //65c8526a8a84605c540b7266
-    // const {loading,data} = useQuery(QUERY_BIKES);
-    // const {loading,data} = useQuery(QUERY_SINGLE_BIKE,{variables:{_id:"65c8526a8a84605c540b7266"}});
+    const { AllBikes } = useRentalContext();
 
-    console.log(data);
+    const sportBikeData = AllBikes.filter((bike) => bike.category === 'Sport');
+    const touringBikeData = AllBikes.filter((bike) => bike.category === 'Touring');
+    const adventureBikeData = AllBikes.filter((bike) => bike.category === 'Adventure');
+    const cruiserBikeData = AllBikes.filter((bike) => bike.category === 'Cruiser');
+    const retroBikeData = AllBikes.filter((bike) => bike.category === 'Retro');
 
 
-    const [open, setOpen] = useState(false);
-    //   console.log(bikesData);
-    const sportBikesData = bikesData.filter((bike) => bike.category === 'Sport');
-    const touringBikesData = bikesData.filter((bike) => bike.category === 'Touring');
-    const adventureBikesData = bikesData.filter((bike) => bike.category === 'Adventure');
-    const cruiserBikesData = bikesData.filter((bike) => bike.category === 'Cruiser');
-    const retroBikesData = bikesData.filter((bike) => bike.category === 'Retro');
+    // const [open, setOpen] = useState(false);
+
 
     return (
+
         <Container fluid>
             <div className="container myOutlet">
                 <section className="features-icons bg-light d-flex">
@@ -79,8 +78,8 @@ export default function AllBikesPage() {
                     <Accordion.Item id="sportBikes" eventKey="0">
                         <Accordion.Header>
                             <h2>Sport</h2>
-                        </Accordion.Header>
-                        <Accordion.Body>
+                        </Accordion.Header >
+                        <Accordion.Body >
                             <Carousel
                                 responsive={responsive}
                                 autoPlay={false}
@@ -92,7 +91,7 @@ export default function AllBikesPage() {
                                 ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {sportBikesData.map((bike, index) => {
+                                {sportBikeData.map((bike, index) => {
                                     return (
                                         <div id="sportBikes" className="slider">
                                             <Card
@@ -114,7 +113,7 @@ export default function AllBikesPage() {
                                                     <Button
                                                         variant="outline-light"
                                                         as={Link}
-                                                        to="/bike/:id"
+                                                        to={`/bike/${bike._id}`}
                                                     >
                                                         view
                                                     </Button>
@@ -142,7 +141,7 @@ export default function AllBikesPage() {
                                 ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {touringBikesData.map((bike, index) => {
+                                {touringBikeData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -164,7 +163,7 @@ export default function AllBikesPage() {
                                                     <Button
                                                         variant="outline-light"
                                                         as={Link}
-                                                        to="/bike/:id"
+                                                        to={`/bike/${bike._id}`}
                                                     >
                                                         view
                                                     </Button>
@@ -192,7 +191,7 @@ export default function AllBikesPage() {
                                 ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {adventureBikesData.map((bike, index) => {
+                                {adventureBikeData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -214,7 +213,7 @@ export default function AllBikesPage() {
                                                     <Button
                                                         variant="outline-light"
                                                         as={Link}
-                                                        to="/bike/:id"
+                                                        to={`/bike/${bike._id}`}
                                                     >
                                                         view
                                                     </Button>
@@ -242,7 +241,7 @@ export default function AllBikesPage() {
                                 ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {cruiserBikesData.map((bike, index) => {
+                                {cruiserBikeData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -264,7 +263,7 @@ export default function AllBikesPage() {
                                                     <Button
                                                         variant="outline-light"
                                                         as={Link}
-                                                        to="/bike/:id"
+                                                        to={`/bike/${bike._id}`}
                                                     >
                                                         view
                                                     </Button>
@@ -292,7 +291,7 @@ export default function AllBikesPage() {
                                 ssr={false}
                                 dotListClass="custom-dot-list-style"
                             >
-                                {retroBikesData.map((bike, index) => {
+                                {retroBikeData.map((bike, index) => {
                                     return (
                                         <div className="slider">
                                             <Card
@@ -314,7 +313,7 @@ export default function AllBikesPage() {
                                                     <Button
                                                         variant="outline-light"
                                                         as={Link}
-                                                        to="/bike/:id"
+                                                        to={`/bike/${bike._id}`}
                                                     >
                                                         view
                                                     </Button>
@@ -332,13 +331,3 @@ export default function AllBikesPage() {
     );
 }
 
-
-// export const handleCategoryLink = (categoryLink) => {
-//     console.log(categoryLink);
-//     // const element = document.getElementById(categoryLink);
-//     // element.click();
-//     // document.getElementById('touringBikes').click();
-
-//     // let element = document.getElementById(target.id);
-//     // element.classList.add('active');
-// };

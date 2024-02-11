@@ -4,8 +4,23 @@ import { HashLink } from 'react-router-hash-link';
 import heroImage from "../assets/hero-image.jpg";
 import { Image, Button, Container, Nav } from 'react-bootstrap';
 
+import { useQuery } from "@apollo/client";
+import { QUERY_BIKES } from "../utils/queries";
+
+
+
+
 export default function AboutPage() {
+
+    const { loading, data } = useQuery(QUERY_BIKES);
+    const bikes = data?.bikes || [];
+
+
+
+
+
     return (
+
         <Container fluid>
             <div id="homePageTop" className="container myOutlet">
                 <div id="intro-example" class="heroOverlay text-center bg-image">

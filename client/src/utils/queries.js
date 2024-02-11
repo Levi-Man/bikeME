@@ -49,8 +49,12 @@ export const QUERY_BIKES = gql`
       mileage
       description
       bikePricePerDay
-      images
-      category 
+      images {
+        url
+        description
+      }
+      category
+      availability
     }
   }
 `;
@@ -69,7 +73,8 @@ export const QUERY_SINGLE_BIKE = gql`
         url
         description
       }
-      category 
+      category
+      availability
     }
   }
 `;
