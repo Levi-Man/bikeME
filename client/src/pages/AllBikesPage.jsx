@@ -13,7 +13,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../styles.css";
 import bikesData from "../utils/SampleSeedData";
-
+// import { useQuery } from "@apollo/client";
+// import { QUERY_BIKES, QUERY_SINGLE_BIKE } from "../utils/queries";
 
 const responsive = {
     desktop: {
@@ -36,6 +37,14 @@ const responsive = {
 
 // default export function for portfolio component
 export default function AllBikesPage() {
+
+    //65c8526a8a84605c540b7266
+    // const {loading,data} = useQuery(QUERY_BIKES);
+    // const {loading,data} = useQuery(QUERY_SINGLE_BIKE,{variables:{_id:"65c8526a8a84605c540b7266"}});
+
+    console.log(data);
+
+
     const [open, setOpen] = useState(false);
     //   console.log(bikesData);
     const sportBikesData = bikesData.filter((bike) => bike.category === 'Sport');
@@ -43,11 +52,6 @@ export default function AllBikesPage() {
     const adventureBikesData = bikesData.filter((bike) => bike.category === 'Adventure');
     const cruiserBikesData = bikesData.filter((bike) => bike.category === 'Cruiser');
     const retroBikesData = bikesData.filter((bike) => bike.category === 'Retro');
-    console.log("sportBikesData", sportBikesData);
-    console.log("touringBikesData", touringBikesData);
-    console.log("adventureBikesData", adventureBikesData);
-    console.log("cruiserBikesData", cruiserBikesData);
-    console.log("retroBikesData", retroBikesData);
 
     return (
         <Container fluid>

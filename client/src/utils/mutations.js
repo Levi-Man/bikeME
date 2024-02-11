@@ -12,18 +12,19 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!, $dateOfBirth: Date!, $licenseDate: Date!) {
-    addUser(username: $username, email: $email, password: $password, dateOfBirth: $dateOfBirth, licenseDate: $licenseDate) {
-      token
-      user {
-        _id
-        username
-        email
-        dateOfBirth
-        licenseDate
-      }
-    }
-  }
-`;
+// export const ADD_USER = gql`
+//   mutation addUser($username: String!, $email: String!, $password: String!, $dateOfBirth: Date!, $licenseDate: Date!) {
+//     addUser(username: $username, email: $email, password: $password, dateOfBirth: $dateOfBirth, licenseDate: $licenseDate) {
+//       token
+//       user {
+//         _id
+//         username
+//         email
+//         dateOfBirth
+//         licenseDate
+//       }
+//     }
+//   }
+// `
+;
 
