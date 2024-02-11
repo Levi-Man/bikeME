@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useState } from 'react';
 import {
     Container,
@@ -12,12 +12,20 @@ import {
     Badge
 } from "react-bootstrap";
 import '../singleView.css';
+import { useRentalContext } from "../utils/GlobalContext";
+// import bikesData from "../utils/SampleSeedData";
 
-import bikesData from "../utils/SampleSeedData";
+
 
 
 
 export default function SingleBikePage() {
+
+
+    const { AllBikes } = useRentalContext();
+    const { id } = useParams();
+
+    const currentBikeData = AllBikes.filter((bike) => bike._id === id);
 
     const [justifyActive, setJustifyActive] = useState('tab1');;
 
@@ -29,6 +37,7 @@ export default function SingleBikePage() {
         setJustifyActive(value);
     };
 
+
     const [rentalTerm, setRentalTerm] = useState(1);
 
     const handleRentalTerm = (e) => {
@@ -36,8 +45,8 @@ export default function SingleBikePage() {
         setRentalTerm(target.valueAsNumber);
     }
 
-    const singleBikeData = bikesData[0];
-    const singleBikeUrls = singleBikeData.images.map((image) => image.url);
+
+    const singleBikeUrls = currentBikeData[0].images.map((image) => image.url);
 
 
 
@@ -73,7 +82,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Make</div>
                                                     </div>
-                                                    {singleBikeData.make}
+                                                    {currentBikeData[0].make}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -82,7 +91,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Model</div>
                                                     </div>
-                                                    {singleBikeData.model}
+                                                    {currentBikeData[0].model}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -91,7 +100,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Year</div>
                                                     </div>
-                                                    {singleBikeData.year}
+                                                    {currentBikeData[0].year}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -100,7 +109,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Mileage</div>
                                                     </div>
-                                                    {`${singleBikeData.mileage} km`}
+                                                    {`${currentBikeData[0].mileage} km`}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -109,7 +118,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Category</div>
                                                     </div>
-                                                    {singleBikeData.category}
+                                                    {currentBikeData[0].category}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -118,7 +127,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Availability</div>
                                                     </div>
-                                                    {singleBikeData.availability ? "Yes" : "No"}
+                                                    {currentBikeData[0].availability ? 'Yes' : 'No'}
                                                 </ListGroup.Item>
                                             </ListGroup>
                                         </Col>
@@ -131,7 +140,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Rental ($/day)</div>
                                                     </div>
-                                                    {singleBikeData.bikePricePerDay}
+                                                    {currentBikeData[0].bikePricePerDay}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"

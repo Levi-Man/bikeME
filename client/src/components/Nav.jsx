@@ -4,15 +4,12 @@ import { HashLink } from 'react-router-hash-link';
 
 import logo from "../assets/site-logo.png";
 import { Image, Button, Container, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap';
-import { bikeCategoryHandler } from '../pages/AllBikesPage';
+
 
 
 export default function Navigation() {
 
-    const handleNavCategory = (navBikeCategory) => {
-        // console.log(navBikeCategory);
-        bikeCategoryHandler(navBikeCategory);
-    }
+
 
     return (
 
@@ -40,19 +37,19 @@ export default function Navigation() {
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
                         <Dropdown.Header>by Category:</Dropdown.Header>
-                        <NavDropdown.Item as={HashLink} to="/bikes#sportBikes" eventKey="/bikes#sportBikes" onClick={() => handleNavCategory('sportBikes')}>
+                        <NavDropdown.Item as={HashLink} to="/bikes#sportBikes" eventKey="/bikes#sportBikes" >
                             Sport
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#touringBikes" eventKey="/bikes#touringBikes" onClick={() => handleNavCategory('touringBikes')}>
+                        <NavDropdown.Item as={HashLink} to="/bikes#touringBikes" eventKey="/bikes#touringBikes" >
                             Touring
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#adventureBikes" eventKey="/bikes#adventureBikes" onClick={() => handleNavCategory('adventureBikes')}>
+                        <NavDropdown.Item as={HashLink} to="/bikes#adventureBikes" eventKey="/bikes#adventureBikes" >
                             Adventure
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#cruiserBikes" eventKey="/bikes#cruiserBikes" onClick={() => handleNavCategory('cruiserBikes')}>
+                        <NavDropdown.Item as={HashLink} to="/bikes#cruiserBikes" eventKey="/bikes#cruiserBikes" >
                             Cruiser
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={HashLink} to="/bikes#retroBikes" eventKey="/bikes#retroBikes" onClick={() => handleNavCategory('retroBikes')}>
+                        <NavDropdown.Item as={HashLink} to="/bikes#retroBikes" eventKey="/bikes#retroBikes" >
                             Retro
                         </NavDropdown.Item>
                     </NavDropdown>
