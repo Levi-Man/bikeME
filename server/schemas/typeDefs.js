@@ -1,20 +1,25 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Query {
-    me: User
-    users: [User]
-    bikes: [Bike]
-    bike(bikeId: ID!): Bike
-    contracts: [Contract]
+type Query {
+  me: User
+  users: [User]
+  bikes: [Bike]
+  bikesCategories(bikeCategory: String!): [Bike]
+  bike(bikeId: ID!): Bike
+  contracts: [Contract]
 
-    #made this plural
-    categories: [Category]
+  #made this plural
+  categories: [Category]
 }
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, dateOfBirth: String!, licenseDate: String!): Auth
+    createContract(userId: ID!, bikeId: ID!, duration: Int!): Contract
+    addContractToUser(
+      contract: Contract
+    ): User
   }
 
   type User {
@@ -22,8 +27,8 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-    dateOfBirth: String
-    licenseDate: String
+    dateOfBirth: String!
+    licenseDate: String!
     contracts: [Contract]
   }
 
@@ -36,6 +41,7 @@ const typeDefs = gql`
     description: String
     bikePricePerDay: Float!
     images: [String]
+    category: String
   }
 
   type Insurance {

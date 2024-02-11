@@ -30,6 +30,20 @@ const resolvers = {
       }
     },
 
+    //filter by category
+    bikesCategories: async (parent, {bikeCategory}) => {
+      const bikeData = await Bike.find({category: bikeCategory});
+      if (!bikeData) {
+        throw new Error('No bikes found!');
+      }
+      try {
+        return bikeData;
+      } catch (error) {
+        throw new Error('Failed to fetch bike data');
+      }
+    },
+
+
     //get single bike
     bike: async (parent, { bikeId }) => {
       const bikeData = await Bike.findOne({ _id: bikeId });
@@ -59,8 +73,8 @@ const resolvers = {
   },
   Mutation: {
     // Resolver for creating a user, signing a token, and sending it back
-    addUser: async (parent, { username, email, password }, context) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password,dateOfBirth, licenseDate }, context) => {
+      const user = await User.create({ username, email, password, dateOfBirth, licenseDate });
 
       if (!user) {
         throw new AuthenticationError('Something is wrong!');
@@ -87,6 +101,25 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
+    createContract: async (parent, { userId, bikeId, duration }, context) => {
+      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
+      // if (context.user) {
+        return await Contract.create({userId,bikeId,duration});
+      // }
+      // If user attempts to execute this mutation and isn't logged in, throw an error
+      // throw AuthenticationError;
+    },
+
+    addContractToUser: async (parent, args, context) => {
+      if (context.user) {
+        return User.findByIdAndUpdate(context.user.id, args, {
+          new: true,
+        });
+      }
+      throw AuthenticationError;
+    },
+
   },
   User: {
     contracts: async (parent) => {

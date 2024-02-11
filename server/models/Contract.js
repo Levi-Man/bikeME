@@ -18,11 +18,13 @@ const contractSchema = new Schema({
     },
     rentalPriceSub: {
         type: Number,
-        required: true
+        //Commented this out
+        // required: true
     },
     rentalPriceTotal: {
         type: Number,
-        required: true
+        //Commented this out
+        // required: true
     }
 });
 

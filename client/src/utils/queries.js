@@ -20,27 +20,27 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_CATEGORY = gql`
-  query category {
-    category {
-      _id
-      name
-      bikes{
-        _id
-        make
-        model
-        year
-        mileage
-        description
-        bikePricePerDay
-        images
-      }
-    }
-  }
-`;
+// export const QUERY_CATEGORY = gql`
+//   query category {
+//     category {
+//       _id
+//       name
+//       bikes{
+//         _id
+//         make
+//         model
+//         year
+//         mileage
+//         description
+//         bikePricePerDay
+//         images
+//       }
+//     }
+//   }
+// `;
 
 export const QUERY_BIKES = gql`
-  query bike {
+  query allBikes {
     bikes {
       _id
       make
@@ -50,10 +50,23 @@ export const QUERY_BIKES = gql`
       description
       bikePricePerDay
       images
-      category {
-        _id
-        name
-      }
+      category 
+    }
+  }
+`;
+
+export const QUERY_SINGLE_BIKE = gql`
+  query singleBike($bikeId: ID!){
+    bike($bikeId: ID!) {
+      _id
+      make
+      model
+      year
+      mileage
+      description
+      bikePricePerDay
+      images
+      category 
     }
   }
 `;
