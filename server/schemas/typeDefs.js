@@ -10,13 +10,12 @@ type Query {
   bike(bikeId: ID!): Bike
   contracts: [Contract]
 }
-
 type Mutation {
   login(email: String!, password: String!): Auth
   addUser(username: String!, email: String!, password: String!, age: Int!, yearsDriving: Int!): Auth
   #createContract(userName: String!, bikeInfo: String!, rentalPerDay: Float!, insurancePerDay: #Float!, duration: Int!, rentalPriceSub: Float!, rentalPriceTotal: Float!): Contract
-  createContract(bikeInfo: String!, rentalPerDay: Float!, insurancePerDay: Float!, duration: Int!, rentalPriceSub: Float!, rentalPriceTotal: Float!): Contract
-  addContractToUser(contractId: ID!): User
+  createContract(userName: String!, bikeInfo: String!, rentalPerDay: Float!, insurancePerDay: Float!, duration: Int!, rentalPriceSub: Float!, rentalPriceTotal: Float!): Contract
+  addContractToUser(userId: ID!, contractId: ID!): User
 }
 
   type User {
@@ -59,7 +58,7 @@ type Mutation {
   type Contract { 
     _id: ID!
     createdAt: String
-    userName: String
+    userName: String!
     bikeInfo: String!
     rentalPerDay: Float!
     insurancePerDay: Float!
