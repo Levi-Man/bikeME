@@ -14,50 +14,56 @@ export const useRentalContext = () => useContext(RentalContext);
 // The provider is responsible for holding our state, updating the state, and persisting values to the children
 export const RentalProvider = ({ children }) => {
 
-  
 
+  // get Allbike data on app load
   const { loading, data } = useQuery(QUERY_BIKES);
 
   const AllBikesData = data?.bikes || [];
 
-  // const [userData, setUserData] = useState(null);
- 
   const AllBikes = AllBikesData;
-  // const userStatus = {
-  //    userData: userData,
-  //   setUserData: setUserData // Function to update user data
-  // };
-  const [ user, setUser ] = useState();
+
+
+
+  // holds loggedIn user's data at global app level
+  const [user, setUser] = useState();
 
   const addUser = (currentUser) => {
-    if (!currentUser) { 
-      return; 
-    } 
+    if (!currentUser) {
+      return;
+    }
     setUser(currentUser);
-  
-  }
 
+  }
   const removeUser = () => {
     setUser('');
-   }
-  // const [ loggedInUserId, setLoggedInUserId ] = useState();
+  }
 
-  // const addLoggedInUserId = (currentUser) => {
-  //   if (!currentUser) { 
-  //     return; 
-  //   } 
-  //   setUser(currentUser);
-  // }
+  // holds the current potential contract in the shopping cart
+  const [shoppingCart, setShoppingCart] = useState({});
 
-  // const removeLoggedInUserId = (currentUser) => {
-  //   setUser('');
-  // }
- 
+  const addShoppingCart = (currentContract) => {
+    if (!currentContract) {
+      return;
+    }
+    setShoppingCart(shoppingCart => ({
+      ...shoppingCart,
+      ...currentContract
+    }));
+    console.log("global", shoppingCart);
+  }
+
+
+  const removeShoppingCart = () => {
+    setShoppingCart('');
+  }
+
+
+
 
   // The value prop expects an initial state object
   return (
     <RentalContext.Provider
-      value={{AllBikes, user, addUser, removeUser}}
+      value={{ AllBikes, user, addUser, removeUser, shoppingCart, addShoppingCart, removeShoppingCart }}
     >
       {/* We render children in our component so that any descendent can access the value from the provider */}
       {children}
