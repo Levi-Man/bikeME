@@ -56,7 +56,7 @@ export const RentalProvider = ({ children }) => {
   // const removeShoppingCart = () => {
   //   setShoppingCart('');
   // }
-  console.log('global', shoppingCart);
+  //console.log('global', shoppingCart);
 
 
 
