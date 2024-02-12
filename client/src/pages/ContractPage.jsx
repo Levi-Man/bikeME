@@ -9,9 +9,16 @@ import {
     Button,
     Badge,
 } from "react-bootstrap";
+// import { useRentalContext } from "../utils/GlobalContext";
+
+
+
+
 
 
 export default function ContractPage() {
+    // const { user, shoppingCart } = useRentalContext();
+    // console.log(shoppingCart);
 
     return (
         <Container fluid>

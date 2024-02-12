@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import React, { useState } from "react";
-import Auth from '../utils/auth';
+import React, { useState, useEffect } from "react";
+import Auth from "../utils/auth";
 import { getInsurance } from "../utils/insurance";
 import {
     Container,
@@ -18,7 +18,7 @@ import { useRentalContext } from "../utils/GlobalContext";
 // import bikesData from "../utils/SampleSeedData";
 
 export default function SingleBikePage() {
-    const { AllBikes, user } = useRentalContext();
+    const { AllBikes, user, shoppingCart, addShoppingCart, removeShoppingCart } = useRentalContext();
     const { id } = useParams();
 
     const currentBikeData = AllBikes.filter((bike) => bike._id === id);
@@ -32,29 +32,29 @@ export default function SingleBikePage() {
 
         setJustifyActive(value);
     };
+
     const [rentalTerm, setRentalTerm] = useState(1);
 
     let insurancePerDay;
     let subTotal;
     let tax;
     let total;
+    let currentContractInfo
 
     if (Auth.loggedIn()) {
         const userAge = user.age;
         const userYearsDriving = user.yearsDriving;
         const bikeRate = currentBikeData[0].bikePricePerDay;
-        insurancePerDay = getInsurance(userAge, userYearsDriving, bikeRate).toFixed(2);
+        insurancePerDay = Number(
+            getInsurance(userAge, userYearsDriving, bikeRate).toFixed(2)
+        );
 
-        subTotal = Number(((Number(insurancePerDay) + bikeRate) * rentalTerm).toFixed(2));
+        subTotal = Number(((insurancePerDay + bikeRate) * rentalTerm).toFixed(2));
 
         tax = Number((Number(subTotal) * 0.13).toFixed(2));
 
-
         total = Number((subTotal + tax).toFixed(2));
-       
     }
-
-
 
 
     const handleRentalTerm = (e) => {
@@ -62,11 +62,31 @@ export default function SingleBikePage() {
         setRentalTerm(target.valueAsNumber);
     };
 
+
+
+
+    const handleRentContract = () => {
+
+        currentContractInfo = {
+
+            userName: user.username,
+            bikeInfo: `${currentBikeData[0].make} ${currentBikeData[0].model}  ${currentBikeData[0].year}`,
+            rentalPerDay: currentBikeData[0].bikePricePerDay,
+            insurancePerDay: insurancePerDay,
+            duration: rentalTerm,
+            rentalPriceSub: subTotal,
+            rentalPriceTotal: total
+        };
+
+        console.log("handler", currentContractInfo);
+        console.log("reading", shoppingCart);
+        addShoppingCart(currentContractInfo);
+    };
+
     const singleBikeUrls = currentBikeData[0].images.map((image) => image.url);
 
     return (
         <Container>
-
             <div className="myOutlet">
                 <Row className="justify-content-md-center">
                     <Col md={10}>
@@ -168,7 +188,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Insurance ($/day)</div>
                                                     </div>
-                                                    {Auth.loggedIn() ? (insurancePerDay) : (`login required`)}
+                                                    {Auth.loggedIn() ? insurancePerDay : `login required`}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -177,7 +197,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Subtotal</div>
                                                     </div>
-                                                    {Auth.loggedIn() ? (subTotal) : (`login required`)}
+                                                    {Auth.loggedIn() ? subTotal : `login required`}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -186,7 +206,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">HST (13%)</div>
                                                     </div>
-                                                    {Auth.loggedIn() ? (tax) : (`login required`)}
+                                                    {Auth.loggedIn() ? tax : `login required`}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -214,18 +234,57 @@ export default function SingleBikePage() {
                                         </Col>
                                     </Row>
                                     <div className="text-center ms-2 me-auto">
-                                        <div className="fw-bold">{Auth.loggedIn() ? `Total Rental Price: $${total}` : ``  }</div>
+                                        <div className="fw-bold">
+                                            {Auth.loggedIn() ? `Total Rental Price: $${total}` : ``}
+                                        </div>
                                     </div>
                                 </Card.Text>
                             </Card.Body>
-                            <Button id="rentButton" variant="danger" as={Link} to="/contract">
-                                Click here to Rent Bike
-                            </Button>
+                            {Auth.loggedIn() ? (
+                                <Button
+                                    id="rentButton"
+                                    variant="danger"
+                                    as={Link}
+                                    to="/contract"
+                                    onClick={handleRentContract}
+                                >
+                                    Click here to Rent Bike
+                                </Button>
+                            ) : (
+                                <Button id="rentButton" variant="danger" as={Link} to="/login">
+                                    Login to Rent
+                                </Button>
+                            )}
                         </Card>
                     </Col>
                 </Row>
             </div>
-            {/* <div>{user._id}</div> */}
         </Container>
     );
 }
+
+//userName: user.username,
+// bikeInfo: `${currentBikeData[0].make} ${currentBikeData[0].model}  ${currentBikeData[0].year}`,
+// rentalPerDay: currentBikeData[0].bikePricePerDay,
+// insurancePerDay: insurancePerDay,
+// duration: rentalTerm,
+// rentalPriceSub: subTotal,
+// rentalPriceTotal: total
+
+
+// console.log(user.username, currentBikeData[0].make, currentBikeData[0].model, currentBikeData[0].year, currentBikeData[0].bikePricePerDay, insurancePerDay, rentalTerm, subTotal, tax, total);
+// console.log(currentContractInfo);
+
+// userName: username,
+// bikeInfo: `${make} ${model}  ${year}`,
+// rentalPerDay: dailyRental,
+// insurancePerDay: dailyInsurance,
+// duration: duration,
+// rentalPriceSub: sub,
+// rentalPriceTotal: allTotal,
+
+// setRentContractObj(rentContractObj => ({
+//     ...rentContractObj,
+//     ...currentContractInfo
+// }));
+
