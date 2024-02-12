@@ -98,19 +98,24 @@ export const QUERY_SINGLE_BIKE = gql`
 `;
 
 export const QUERY_SINGLE_USER =gql`
-query singelUser($userId: ID!) {
+query Query($userId: ID!) {
   user(userId: $userId) {
     _id
-    username
-    email
     age
-    yearsDriving
     contracts {
-      _id
       bikeInfo
-      rentalPerDay
+      _id
+      createdAt
       duration
+      insurancePerDay
+      rentalPerDay
+      rentalPriceSub
+      rentalPriceTotal
     }
+    email
+    password
+    username
+    yearsDriving
   }
 }
 `;
