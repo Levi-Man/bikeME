@@ -1,5 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import React, { useState } from "react";
+import Auth from '../utils/auth';
+import { getInsurance } from "../utils/insurance";
 import {
     Container,
     Row,
@@ -16,7 +18,7 @@ import { useRentalContext } from "../utils/GlobalContext";
 // import bikesData from "../utils/SampleSeedData";
 
 export default function SingleBikePage() {
-    const { AllBikes } = useRentalContext();
+    const { AllBikes, user } = useRentalContext();
     const { id } = useParams();
 
     const currentBikeData = AllBikes.filter((bike) => bike._id === id);
@@ -30,8 +32,30 @@ export default function SingleBikePage() {
 
         setJustifyActive(value);
     };
-
     const [rentalTerm, setRentalTerm] = useState(1);
+
+    let insurancePerDay;
+    let subTotal;
+    let tax;
+    let total;
+
+    if (Auth.loggedIn()) {
+        const userAge = user.age;
+        const userYearsDriving = user.yearsDriving;
+        const bikeRate = currentBikeData[0].bikePricePerDay;
+        insurancePerDay = getInsurance(userAge, userYearsDriving, bikeRate).toFixed(2);
+
+        subTotal = Number(((Number(insurancePerDay) + bikeRate) * rentalTerm).toFixed(2));
+
+        tax = Number((Number(subTotal) * 0.13).toFixed(2));
+
+
+        total = Number((subTotal + tax).toFixed(2));
+       
+    }
+
+
+
 
     const handleRentalTerm = (e) => {
         const { target } = e;
@@ -42,6 +66,7 @@ export default function SingleBikePage() {
 
     return (
         <Container>
+
             <div className="myOutlet">
                 <Row className="justify-content-md-center">
                     <Col md={10}>
@@ -143,7 +168,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Insurance ($/day)</div>
                                                     </div>
-                                                    {`login required`}
+                                                    {Auth.loggedIn() ? (insurancePerDay) : (`login required`)}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -152,7 +177,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">Subtotal</div>
                                                     </div>
-                                                    {`login required`}
+                                                    {Auth.loggedIn() ? (subTotal) : (`login required`)}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -161,7 +186,7 @@ export default function SingleBikePage() {
                                                     <div className="ms-2 me-auto">
                                                         <div className="fw-bold">HST (13%)</div>
                                                     </div>
-                                                    {`login required`}
+                                                    {Auth.loggedIn() ? (tax) : (`login required`)}
                                                 </ListGroup.Item>
                                                 <ListGroup.Item
                                                     as="li"
@@ -189,7 +214,7 @@ export default function SingleBikePage() {
                                         </Col>
                                     </Row>
                                     <div className="text-center ms-2 me-auto">
-                                        <div className="fw-bold">{`Total Rental Price: login required`}</div>
+                                        <div className="fw-bold">{Auth.loggedIn() ? `Total Rental Price: $${total}` : ``  }</div>
                                     </div>
                                 </Card.Text>
                             </Card.Body>
@@ -200,6 +225,7 @@ export default function SingleBikePage() {
                     </Col>
                 </Row>
             </div>
+            {/* <div>{user._id}</div> */}
         </Container>
     );
 }

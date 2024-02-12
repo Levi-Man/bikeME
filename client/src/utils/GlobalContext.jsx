@@ -1,4 +1,4 @@
-import { createContext, useContext, useState  } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useQuery } from "@apollo/client";
 import { QUERY_BIKES } from "../utils/queries";
 
@@ -14,29 +14,50 @@ export const useRentalContext = () => useContext(RentalContext);
 // The provider is responsible for holding our state, updating the state, and persisting values to the children
 export const RentalProvider = ({ children }) => {
 
-  const { loading, data } = useQuery(QUERY_BIKES);
-  console.log("bikes",data)
+  
 
+  const { loading, data } = useQuery(QUERY_BIKES);
 
   const AllBikesData = data?.bikes || [];
 
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
+ 
+  const AllBikes = AllBikesData;
+  // const userStatus = {
+  //    userData: userData,
+  //   setUserData: setUserData // Function to update user data
+  // };
+  const [ user, setUser ] = useState();
 
-  // console.log(AllBikesData);
+  const addUser = (currentUser) => {
+    if (!currentUser) { 
+      return; 
+    } 
+    setUser(currentUser);
+  
+  }
 
-  // const AllBikes = AllBikesData;
-  const contextValue = {
-    AllBikes: AllBikesData,
-    userData: userData,
-    setUserData: setUserData // Function to update user data
-  };
+  const removeUser = () => {
+    setUser('');
+   }
+  // const [ loggedInUserId, setLoggedInUserId ] = useState();
 
+  // const addLoggedInUserId = (currentUser) => {
+  //   if (!currentUser) { 
+  //     return; 
+  //   } 
+  //   setUser(currentUser);
+  // }
 
+  // const removeLoggedInUserId = (currentUser) => {
+  //   setUser('');
+  // }
+ 
 
   // The value prop expects an initial state object
   return (
     <RentalContext.Provider
-      value={contextValue}
+      value={{AllBikes, user, addUser, removeUser}}
     >
       {/* We render children in our component so that any descendent can access the value from the provider */}
       {children}
