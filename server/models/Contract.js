@@ -10,7 +10,7 @@ const contractSchema = new Schema({
         default: Date.now,
         get: timestamp => dateFormat(timestamp),
     },
-    userName:{
+    userName: {
         type: String
     },
     bikeInfo: {
@@ -51,7 +51,7 @@ const contractSchema = new Schema({
 //         const Insurance = require('../models/Insurance'); // Import here to avoid circular dependency
 //         const insurance = await Insurance.findOne({ user: this.user, bike: this.bike });
 //         const insurancePerDay = insurance ? insurance.insuranceQuotePerDay : 0; // Set default value if insurance not found
-        
+
 //         // Calculate rental price subtotal
 //         this.rentalPriceSub = (bikePricePerDay + insurancePerDay) * this.duration;
 

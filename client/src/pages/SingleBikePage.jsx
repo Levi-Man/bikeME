@@ -18,7 +18,7 @@ import { useRentalContext } from "../utils/GlobalContext";
 // import bikesData from "../utils/SampleSeedData";
 
 export default function SingleBikePage() {
-    const { AllBikes, user, shoppingCart, addShoppingCart, removeShoppingCart } = useRentalContext();
+    const { AllBikes, user, shoppingCart, setShoppingCart } = useRentalContext();
     const { id } = useParams();
 
     const currentBikeData = AllBikes.filter((bike) => bike._id === id);
@@ -51,7 +51,7 @@ export default function SingleBikePage() {
 
         subTotal = Number(((insurancePerDay + bikeRate) * rentalTerm).toFixed(2));
 
-        tax = Number((Number(subTotal) * 0.13).toFixed(2));
+        tax = Number((subTotal * 0.13).toFixed(2));
 
         total = Number((subTotal + tax).toFixed(2));
     }
@@ -61,8 +61,6 @@ export default function SingleBikePage() {
         const { target } = e;
         setRentalTerm(target.valueAsNumber);
     };
-
-
 
 
     const handleRentContract = () => {
@@ -79,9 +77,13 @@ export default function SingleBikePage() {
         };
 
         console.log("handler", currentContractInfo);
-        console.log("reading", shoppingCart);
-        addShoppingCart(currentContractInfo);
+        setShoppingCart(shoppingCart => ({
+            ...shoppingCart,
+            ...currentContractInfo
+        }));
+        // console.log("reading", shoppingCart);
     };
+
 
     const singleBikeUrls = currentBikeData[0].images.map((image) => image.url);
 

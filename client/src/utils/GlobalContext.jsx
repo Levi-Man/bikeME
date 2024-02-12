@@ -41,29 +41,29 @@ export const RentalProvider = ({ children }) => {
   // holds the current potential contract in the shopping cart
   const [shoppingCart, setShoppingCart] = useState({});
 
-  const addShoppingCart = (currentContract) => {
-    if (!currentContract) {
-      return;
-    }
-    setShoppingCart(shoppingCart => ({
-      ...shoppingCart,
-      ...currentContract
-    }));
-    console.log("global", shoppingCart);
-  }
+  // const addShoppingCart = (currentContract) => {
+  //   if (!currentContract) {
+  //     return;
+  //   }
+  //   setShoppingCart(shoppingCart => ({
+  //     ...shoppingCart,
+  //     ...currentContract
+  //   }));
+  //   console.log("global", shoppingCart);
+  // }
 
 
-  const removeShoppingCart = () => {
-    setShoppingCart('');
-  }
-
+  // const removeShoppingCart = () => {
+  //   setShoppingCart('');
+  // }
+  console.log('global', shoppingCart);
 
 
 
   // The value prop expects an initial state object
   return (
     <RentalContext.Provider
-      value={{ AllBikes, user, addUser, removeUser, shoppingCart, addShoppingCart, removeShoppingCart }}
+      value={{ AllBikes, user, addUser, removeUser, shoppingCart, setShoppingCart }}
     >
       {/* We render children in our component so that any descendent can access the value from the provider */}
       {children}
