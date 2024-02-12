@@ -4,10 +4,10 @@ const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
-    me: async (parent, args, {context}) => {
+    me: async (parent, args, context) => {
       if (user._id) {
         console.log(context.user._id);
-        return User.findOne({ _id: user._id }).populate('contracts');
+        return User.findOne({ _id: context.user._id }).populate('contracts');
       }
       throw AuthenticationError;
     },
@@ -105,21 +105,20 @@ const resolvers = {
     createContract: async (parent, { userName, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       // if (context.user) {
-      return await Contract.create({ userName: context.user.username, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal });
+      return await Contract.create({ userName, bikeInfo, rentalPerDay, insurancePerDay, duration, rentalPriceSub, rentalPriceTotal });
       // }
       // If user attempts to execute this mutation and isn't logged in, throw an error
       // throw AuthenticationError;
     },
 
-    addContractToUser: async (parent, args, context) => {
-      if (context.user) {
-        return User.findByIdAndUpdate(context.user.id, args, {
-          new: true,
-        });
-      }
-      throw AuthenticationError;
+    addContractToUser: async (parent, {userId, contractId}, context) => {
+      // if (context.user) {
+        const user =  await User.findByIdAndUpdate({_id:userId}, {$push: { contracts: contractId } }, { new: true }).populate('contracts');
+      // }
+      // throw AuthenticationError;
+      console.log(user);
+      return user;
     },
-
   },
 };
 
