@@ -1,12 +1,13 @@
-const { User, Contract, Bike, Category } = require('../models');
+const { User, Contract, Bike,} = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('contracts');
+    me: async (parent, args, {context}) => {
+      if (user._id) {
+        console.log(context.user._id);
+        return User.findOne({ _id: user._id }).populate('contracts');
       }
       throw AuthenticationError;
     },

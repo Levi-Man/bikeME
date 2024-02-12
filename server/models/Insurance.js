@@ -16,8 +16,10 @@ const insuranceSchema = new Schema({
         get: (timestamp) => dateFormat(timestamp),
     },
     
-    userAge:{
+    age:{
         type: Number,
+        ref: 'User',
+        required: true
     },
 
     rentalPerDay: {
@@ -27,6 +29,7 @@ const insuranceSchema = new Schema({
 
     yearsDriving:{
         type: Number,
+        ref: 'User',
         required: true
     }, 
 
