@@ -16,10 +16,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.0"
-  },
-  "dependencies": {
-    "apollo-server-express": "^3.13.0",
-    "mongodb": "^6.3.0",
-    "react-router-dom": "^6.22.0"
   }
 }
