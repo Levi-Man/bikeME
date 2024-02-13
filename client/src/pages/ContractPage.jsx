@@ -26,7 +26,6 @@ export default function ContractPage() {
     const [addContract, { addContractError }] = useMutation(ADD_CONTRACT);
 
 
-
     const handleRentContract = async () => {
 
         try {
@@ -35,7 +34,7 @@ export default function ContractPage() {
                     ...shoppingCart
                 },
             });
-            // console.log("recievedContract", contractData.data.createContract);
+          
             const newContract = contractData.data.createContract;
 
             const updatedUser = await addContract({
@@ -44,20 +43,15 @@ export default function ContractPage() {
                     contractId: newContract._id
                 }
             });
-
-            //  console.log("addedToUser", updatedUser.data.addContractToUser);
+        
             addUser(updatedUser.data.addContractToUser);
-            //console.log(user);
-
-            // console.log("addedToUser",updatedUser.data.addContractToUser.contracts);
-
+            
+            window.alert("Your new contract has been added to your profile.")
         } catch (err) {
             console.error(err);
         }
 
     }
-
-
 
     return (
         <Container >

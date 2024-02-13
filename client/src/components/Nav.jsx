@@ -28,7 +28,7 @@ export default function Navigation() {
                     }
                 });
                 addUser(data.user);
-                console.log(user);
+                
 
             } catch (error) {
                 console.error("Error fetching data.")

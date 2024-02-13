@@ -41,25 +41,6 @@ export const RentalProvider = ({ children }) => {
   // holds the current potential contract in the shopping cart
   const [shoppingCart, setShoppingCart] = useState({});
 
-  // const addShoppingCart = (currentContract) => {
-  //   if (!currentContract) {
-  //     return;
-  //   }
-  //   setShoppingCart(shoppingCart => ({
-  //     ...shoppingCart,
-  //     ...currentContract
-  //   }));
-  //   console.log("global", shoppingCart);
-  // }
-
-
-  // const removeShoppingCart = () => {
-  //   setShoppingCart('');
-  // }
-  //console.log('global', shoppingCart);
-
-
-
   // The value prop expects an initial state object
   return (
     <RentalContext.Provider

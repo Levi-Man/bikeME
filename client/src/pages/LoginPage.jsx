@@ -47,10 +47,10 @@ export default function LoginPage() {
             });
             const { token, user } = response.data.login;
             Auth.login(token);
-            console.log(user);
+            window.alert(`Welcome ${user.username}`)
         } catch (err) {
-            console.error(err);
-            setShowAlert(true);
+            // console.error(err);
+            window.alert("Wrong email or password");
         }
     };
 
@@ -67,8 +67,9 @@ export default function LoginPage() {
                     yearsDriving: parseInt(yearsDriving)
                 },
             });
-            const { token } = data.addUser;
+            const { token, user } = data.addUser;
             Auth.login(token);
+            window.alert(`Welcome ${user.username}`)
         } catch (err) {
             console.error(err);
             setShowAlert(true);
