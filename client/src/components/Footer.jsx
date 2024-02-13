@@ -13,7 +13,7 @@ export default function Footer() {
                     <Navbar.Text id="footerText" >&copy; 2024 Syed, Indra, Blessing Inc</Navbar.Text>
                 </Navbar.Brand>
                 <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://github.com/kazmiali123" target="_blank"><svg
+                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://www.facebook.com" target="_blank"><svg
                         className='iconSVG'
                         viewBox="0 0 1024 1024"
                         fill="currentColor"
@@ -22,7 +22,7 @@ export default function Footer() {
                     >
                         <path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-92.4 233.5h-63.9c-50.1 0-59.8 23.8-59.8 58.8v77.1h119.6l-15.6 120.7h-104V912H539.2V602.2H434.9V481.4h104.3v-89c0-103.3 63.1-159.6 155.3-159.6 44.2 0 82.1 3.3 93.2 4.8v107.9z" />
                     </svg></a></li>
-                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://www.linkedin.com/in/syed-kazmi-design/" target="_blank"> <svg
+                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://www.linkedin.com/" target="_blank"> <svg
                         className='iconSVG'
                         viewBox="0 0 1024 1024"
                         fill="currentColor"
@@ -31,7 +31,7 @@ export default function Footer() {
                     >
                         <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm215.3 337.7c.3 4.7.3 9.6.3 14.4 0 146.8-111.8 315.9-316.1 315.9-63 0-121.4-18.3-170.6-49.8 9 1 17.6 1.4 26.8 1.4 52 0 99.8-17.6 137.9-47.4-48.8-1-89.8-33-103.8-77 17.1 2.5 32.5 2.5 50.1-2a111 111 0 01-88.9-109v-1.4c14.7 8.3 32 13.4 50.1 14.1a111.13 111.13 0 01-49.5-92.4c0-20.7 5.4-39.6 15.1-56a315.28 315.28 0 00229 116.1C492 353.1 548.4 292 616.2 292c32 0 60.8 13.4 81.1 35 25.1-4.7 49.1-14.1 70.5-26.7-8.3 25.7-25.7 47.4-48.8 61.1 22.4-2.4 44-8.6 64-17.3-15.1 22.2-34 41.9-55.7 57.6z" />
                     </svg></a></li>
-                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://stackoverflow.com/users/23352269/syed-kazmi" target="_blank"><svg
+                    <li className="footerIcon ms-3"><a className="text-body-secondary" href="https://www.instagram.com" target="_blank"><svg
                         className='iconSVG'
                         fill="currentColor"
                         viewBox="0 0 16 16"
