@@ -4,7 +4,7 @@ const { calculateInsuranceQuote } = require('../models/Insurance')
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/bikeDB', {
+mongoose.connect('mongodb://0.0.0.0:27017/bikeDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
