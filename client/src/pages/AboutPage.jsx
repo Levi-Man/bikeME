@@ -41,32 +41,38 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </div>
-                <section className="features-icons bg-light d-flex">
-                    <div className="container AboutMeBox">
-                        <div className="row">
-                            <div className="col">
-                                <h2>About Me</h2>
-                                <br></br>
-                                <row>
-                                    <p>
-                                        Hello,
-                                        <br></br>
-                                        <br></br>
-                                        I Syed am a graduate of the University of Toronto, Full-Stack Web Development Bootcamp. With a backgound in Energy Engineering from Ontario Tech Unversity, allowed me to transfer my time-management, organizational, and problem-solving skills to learn and apply software solutions/technologies for real-world problems.
-                                    </p>
-                                </row>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+
                 <section id="aboutUsSection" class="bg-light py-5">
                     <div class="container px-5">
                         <div class="row gx-5 justify-content-center">
                             <div class="col-xxl-8">
                                 <div class="text-center my-5">
-                                    <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Us</span></h2>
-                                    <p class="lead fw-light mb-4">My name is Start Bootstrap and I help brands grow.</p>
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit dolorum itaque qui unde quisquam consequatur autem. Eveniet quasi nobis aliquid cumque officiis sed rem iure ipsa! Praesentium ratione atque dolorem?</p>
+                                    <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Welcome to BikeME</span></h2>
+                                    <p class="lead fw-light mb-4">What do you want to ride?</p>
+                                    <p class="text-muted">
+                                        Welcome to BikeME, the ultimate destination for motorcycle enthusiasts seeking unforgettable adventures on two wheels. Born from the collective passion of three avid riders, Syed, Indra, and Blessing, our journey began with a shared vision to redefine the motorcycle rental experience.
+                                    </p>
+
+                                    <p class="text-muted">
+                                        At BikeME, we're not just in the business of renting motorcycles; we're in the business of creating memories. Our founders bring together their expertise, dedication, and love for motorcycles to curate an exceptional riding experience for every customer.
+                                    </p>
+
+                                    <p class="text-muted">
+                                        With a commitment to excellence, we offer a diverse fleet of top-quality motorcycles, meticulously maintained to ensure both safety and performance. Whether you're craving the adrenaline rush of a high-powered sportbike, the freedom of a classic cruiser, or the versatility of an adventure bike, we have the perfect ride for you.
+                                    </p>
+
+                                    <p class="text-muted">
+                                        But our dedication goes beyond just providing motorcycles. We're here to make your journey seamless and unforgettable. From personalized recommendations to comprehensive support, our team is dedicated to ensuring that every aspect of your rental experience exceeds your expectations.
+                                    </p>
+
+                                    <p class="text-muted">
+                                        At BikeME, we believe that the thrill of the open road should be accessible to all. Whether you're embarking on a solo adventure, planning a group ride with friends, or looking to explore new destinations, we're here to make it happen.
+                                    </p>
+
+                                    <p class="text-muted">
+                                        Join us at BikeME and let's embark on the ride of a lifetime together.
+                                    </p>
+
                                 </div>
                             </div>
                         </div>

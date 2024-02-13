@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-multi-carousel": "^2.8.4",
     "react-router-dom": "^6.11.2",
-    "react-router-hash-link": "^2.4.3"
+    "react-router-hash-link": "^2.4.3",
+    "vitest": "^0.32.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
