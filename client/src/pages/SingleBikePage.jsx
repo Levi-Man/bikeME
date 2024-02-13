@@ -90,7 +90,7 @@ export default function SingleBikePage() {
     return (
         <Container>
             <div className="myOutlet">
-                <Row className="justify-content-md-center">
+                <Row className="justify-content-md-center singleBikeDisplay">
                     <Col md={10}>
                         <Carousel fade data-bs-theme="dark">
                             {singleBikeUrls.map((imageUrl, index) => {

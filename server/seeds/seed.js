@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const { Bike, User, Contract, Category } = require('../models');
+const { Bike, User, Contract, Insurance } = require('../models');
 const { calculateInsuranceQuote } = require('../models/Insurance')
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/bikeDB', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bikeDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -17,27 +17,11 @@ mongoose.connection.once('connected', async () => {
 const seedData = async () => {
   try {
     // Remove existing data
-    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany()]);
+    await Promise.all([User.deleteMany(), Bike.deleteMany(), Contract.deleteMany(), Insurance.deleteMany()]);
 
     // Insert new bikes
     const insertedBikes = await Bike.insertMany(bikesData);
 
-    // categoriesData.forEach((c) => {
-    //   console.log(c)
-    //   let filteredBikes = insertedBikes.map((b) => {
-    //     let bikeIds = []
-    //     if (b.category == c.name) {
-    //       return b._id
-    //     }
-    //   }
-    //   )
-    //   let filteredCategoryBike = filteredBikes.filter((b) =>
-    //     b
-    //   )
-    //   console.log(filteredCategoryBike)
-    //   if (filteredCategoryBike.length > 0)
-    //     Category.create({ name: c.name, bikes: filteredCategoryBike })
-    // })
 
     // Insert new users
     const insertedUsers = await User.insertMany(usersData);
@@ -47,21 +31,11 @@ const seedData = async () => {
   } catch (error) {
     console.error('Error seeding data:', error);
   } finally {
-  
+
     process.exit(0);
   }
 };
 
-// // Function to calculate insurance and rental prices
-// const calculateInsurance = (duration, age, yearsDriving, bikePricePerDay) => {
-//   const insuranceQuotePerDay = calculateInsuranceQuote(age, yearsDriving, bikePricePerDay);
-//   return {
-//     duration,
-//     rentalPriceSub: duration * bikePricePerDay,
-//     rentalPriceTotal: duration * (bikePricePerDay + insuranceQuotePerDay),
-//     insuranceQuotePerDay,
-//   };
-// };
 
 // Array of bike data
 const bikesData = [
@@ -207,7 +181,7 @@ const bikesData = [
     category: 'Cruiser',
     bikePricePerDay: 85.00,
     availability: true,
-        images: [{ url: 'https://ultimatemotorcycling.com/wp-content/uploads/2019/09/2020-harley-sportster-iron-883-buyers-guide-1.jpg', description: 'Quarter View' }, { url: 'https://cdn-0.totalmotorcycle.com/wp-content/uploads/2019/08/2020-Harley-Davidson-Iron-883c.jpg', description: 'Side View' }, { url: 'https://www.webbikeworld.com/wp-content/uploads/2020/01/2020-Harley-Davidson-Iron-883-06.jpg', description: 'Dynamic View' }],
+    images: [{ url: 'https://ultimatemotorcycling.com/wp-content/uploads/2019/09/2020-harley-sportster-iron-883-buyers-guide-1.jpg', description: 'Quarter View' }, { url: 'https://cdn-0.totalmotorcycle.com/wp-content/uploads/2019/08/2020-Harley-Davidson-Iron-883c.jpg', description: 'Side View' }, { url: 'https://www.webbikeworld.com/wp-content/uploads/2020/01/2020-Harley-Davidson-Iron-883-06.jpg', description: 'Dynamic View' }],
   },
   {
     make: 'Indian',
@@ -426,10 +400,6 @@ const bikesData = [
 module.exports = bikesData;
 
 
-
-
-
-
 const usersData = [
   {
     username: 'john_doe',
@@ -459,35 +429,3 @@ const usersData = [
     age: 27,
   },
 ];
-
-// const contractsData = [
-//   {
-//     username: 'john_doe',
-//     bikeName: 'R1250GS',
-//     duration: 5,
-//     rentalPriceSub: '',
-//     rentalPriceTotal: '',
-//   },
-//   {
-//     username: 'jane_smith',
-//     bikeName: 'Monster 821',
-//     duration: 3,
-//     rentalPriceSub: '',
-//     rentalPriceTotal: '',
-//   },
-//   {
-//     username: 'michael_johnson',
-//     bikeName: 'Ninja ZX-10R',
-//     duration: 3,
-//     rentalPriceSub: '',
-//     rentalPriceTotal: '',
-//   },
-// ];
-
-// const categoriesData = [
-//   { name: 'Sport' },
-//   { name: 'Cruiser' },
-//   { name: 'Adventure' },
-//   { name: 'Retro' },
-//   { name: 'Touring' }
-// ];

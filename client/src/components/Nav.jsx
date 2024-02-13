@@ -60,6 +60,13 @@ export default function Navigation() {
                     variant='underline'
                     defaultActiveKey="/"
                 >
+                    {/* Conditional rendering for login/logout button */}
+                    {Auth.loggedIn() ? (
+                        <Nav.Link as={Link} to="profile" eventKey="/profile">Profile</Nav.Link>
+
+                    ) : (
+                        <Nav.Link ></Nav.Link>
+                    )}
                     <Nav.Link as={HashLink} to="/#homePageTop" eventKey="/#homePageTop">Home</Nav.Link>
                     <Nav.Link as={HashLink} to="/#aboutUsSection" eventKey="/#aboutUsSection">About Us</Nav.Link>
                     <NavDropdown

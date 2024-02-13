@@ -15,6 +15,7 @@ import AllBikesPage from './pages/AllBikesPage.jsx';
 import SingleBikePage from './pages/SingleBikePage.jsx';
 import ContractPage from './pages/ContractPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import ProfilePage from './pages/Profile.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 
 // setup the react router  and endpoints for index, and other pages
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'profile',
+        element: <ProfilePage />,
       },
     ],
   },

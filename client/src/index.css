@@ -9,10 +9,6 @@ html {
   scroll-padding-top: 100px; /* height of sticky header */
 }
 
-.logo {
-  /* color:gold;
-  background-color: gold; */
-}
 .iconSVG:hover {
   fill: gold;
 }
@@ -102,4 +98,9 @@ html {
   background: #4ECDC4;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.profileTitle{
+  padding: 20px;
+  text-align: center;
 }
