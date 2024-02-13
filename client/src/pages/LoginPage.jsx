@@ -4,22 +4,14 @@ import { LOGIN_USER, ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import {
     MDBContainer,
-    MDBTabs,
-    MDBTabsItem,
-    MDBTabsLink,
-    MDBTabsContent,
-    MDBTabsPane,
     MDBBtn,
-    MDBIcon,
     MDBInput,
-    MDBCheckbox
 } from 'mdb-react-ui-kit';
 
 import {
     Container,
     Row,
     Col,
-    Form,
     Button,
     Alert
 } from "react-bootstrap";
@@ -106,11 +98,11 @@ export default function LoginPage() {
                                 value={loginPassword}
                                 onChange={(e) => setLoginPassword(e.target.value)}
                             />
-                            <MDBBtn className="mb-4"
-                             disabled={!(loginEmail && loginPassword)}
+                            <Button className="mb-4"
+                                disabled={!(loginEmail && loginPassword)}
                                 onClick={handleLogin}>
                                 Login in
-                            </MDBBtn>
+                            </Button>
                         </MDBContainer>
                     </Col>
 
@@ -151,12 +143,12 @@ export default function LoginPage() {
                                 type='number'
                                 onChange={(e) => setYearsDriving(e.target.value)}
                             />
-                            <MDBBtn className="mb-4"
-                            disabled={!(userName && registerEmail && registerPassword && age && yearsDriving)}
+                            <Button className="mb-4"
+                                disabled={!(userName && registerEmail && registerPassword && age && yearsDriving)}
                                 onClick={handleRegister}
                             >
                                 Register
-                            </MDBBtn>
+                            </Button>
                         </MDBContainer>
                     </Col>
                 </Row>

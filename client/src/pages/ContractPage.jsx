@@ -21,42 +21,39 @@ import Auth from "../utils/auth";
 
 
 export default function ContractPage() {
-    const { user, addUser, shoppingCart } = useRentalContext();  
+    const { user, addUser, shoppingCart } = useRentalContext();
     const [createContract, { createContractError }] = useMutation(CREATE_CONTRACT);
     const [addContract, { addContractError }] = useMutation(ADD_CONTRACT);
 
 
 
+    const handleRentContract = async () => {
 
-   
-
-    const handleRentContract =  async () => {        
-        
         try {
-            const contractData =  await createContract({
+            const contractData = await createContract({
                 variables: {
-                   ...shoppingCart
+                    ...shoppingCart
                 },
             });
-            console.log("recievedContract",contractData.data.createContract);
+            // console.log("recievedContract", contractData.data.createContract);
             const newContract = contractData.data.createContract;
 
             const updatedUser = await addContract({
-                variables: { 
+                variables: {
                     userId: Auth.getProfile().data._id,
                     contractId: newContract._id
                 }
             });
 
-            console.log("addedToUser",updatedUser.data.addContractToUser);
+            //  console.log("addedToUser", updatedUser.data.addContractToUser);
             addUser(updatedUser.data.addContractToUser);
-            console.log(user);
+            //console.log(user);
 
             // console.log("addedToUser",updatedUser.data.addContractToUser.contracts);
 
         } catch (err) {
             console.error(err);
-        }       
+        }
 
     }
 
@@ -66,7 +63,7 @@ export default function ContractPage() {
         <Container >
             <div className="myOutlet">
                 <div className="purchaseCard">
-                    <Container fluid>
+                    <Container fluid className="purchaseContainer">
                         {!shoppingCart ? (
                             <div>... Loading</div>
                         ) : (
@@ -120,7 +117,7 @@ export default function ContractPage() {
                                             variant="success"
                                             size="lg"
                                             as={Link}
-                                            to="/contract"
+                                            to="/"
                                             onClick={handleRentContract}
                                         >
                                             Checkout to Rent
@@ -147,4 +144,3 @@ export default function ContractPage() {
         </Container>
     );
 }
-
