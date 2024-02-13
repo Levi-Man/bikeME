@@ -76,12 +76,11 @@ export default function SingleBikePage() {
             rentalPriceTotal: total
         };
 
-        console.log("handler", currentContractInfo);
         setShoppingCart(shoppingCart => ({
             ...shoppingCart,
             ...currentContractInfo
         }));
-        // console.log("reading", shoppingCart);
+
     };
 
 
@@ -265,28 +264,4 @@ export default function SingleBikePage() {
     );
 }
 
-//userName: user.username,
-// bikeInfo: `${currentBikeData[0].make} ${currentBikeData[0].model}  ${currentBikeData[0].year}`,
-// rentalPerDay: currentBikeData[0].bikePricePerDay,
-// insurancePerDay: insurancePerDay,
-// duration: rentalTerm,
-// rentalPriceSub: subTotal,
-// rentalPriceTotal: total
-
-
-// console.log(user.username, currentBikeData[0].make, currentBikeData[0].model, currentBikeData[0].year, currentBikeData[0].bikePricePerDay, insurancePerDay, rentalTerm, subTotal, tax, total);
-// console.log(currentContractInfo);
-
-// userName: username,
-// bikeInfo: `${make} ${model}  ${year}`,
-// rentalPerDay: dailyRental,
-// insurancePerDay: dailyInsurance,
-// duration: duration,
-// rentalPriceSub: sub,
-// rentalPriceTotal: allTotal,
-
-// setRentContractObj(rentContractObj => ({
-//     ...rentContractObj,
-//     ...currentContractInfo
-// }));
 

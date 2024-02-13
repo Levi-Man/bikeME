@@ -55,19 +55,20 @@ Blessing -
 
 ## Screenshots
 Homepage
-<img src="" alt="Homepage">
+<img src="./assets/Homepage (2).png" alt="Homepage">
 
 Login
-<img src="" alt="Login">
+<img src="./assets/Login (2).png" alt="Login">
 
 All Bikes Page
-<img src="" alt="All Bikes Page">
+<img src="./assets/BIkes.png" alt="All Bikes Page">
 
 Single Bike
-<img src="" alt="Bike Page">
+<img src="./assets/SingleBike.png" alt="Bike Page">
 
 ## Links
 
-Deployed site: 
+Deployed site: https://bikeme.onrender.com/
 
 GitHub Repo: https://github.com/Levi-Man/bikeME
+

@@ -1,4 +1,4 @@
-const { User, Contract, Bike,} = require('../models');
+const { User, Contract, Bike, } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -6,7 +6,6 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (user._id) {
-        console.log(context.user._id);
         return User.findOne({ _id: context.user._id }).populate('contracts');
       }
       throw AuthenticationError;
@@ -111,12 +110,12 @@ const resolvers = {
       // throw AuthenticationError;
     },
 
-    addContractToUser: async (parent, {userId, contractId}, context) => {
+    addContractToUser: async (parent, { userId, contractId }, context) => {
       // if (context.user) {
-        const user =  await User.findByIdAndUpdate({_id:userId}, {$push: { contracts: contractId } }, { new: true }).populate('contracts');
+      const user = await User.findByIdAndUpdate({ _id: userId }, { $push: { contracts: contractId } }, { new: true }).populate('contracts');
       // }
       // throw AuthenticationError;
-      console.log(user);
+
       return user;
     },
   },

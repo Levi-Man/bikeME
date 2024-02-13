@@ -21,7 +21,6 @@ export default function ProfilePage() {
 
 
     const contracts = user.contracts;
-
     const [justifyActive, setJustifyActive] = useState("tab1");
 
     const handleJustifyClick = (value) => {
@@ -49,13 +48,22 @@ export default function ProfilePage() {
                             return (
                                 <div>
                                     <Card>
-                                        <Card.Header>{`Rental Details for Contract (${contract._id})`}</Card.Header>
+                                        <Card.Header>{`Rental Details for Contract ID: (${contract._id})`}</Card.Header>
                                         <Card.Body>
                                             <Card.Title>{ }</Card.Title>
                                             <Card.Text>
                                                 <Row className="justify-content-between">
                                                     <Col >
                                                         <ListGroup as="ol" variant="flush">
+                                                        <ListGroup.Item
+                                                                as="li"
+                                                                className="d-flex justify-content-between align-items-start"
+                                                            >
+                                                                <div className="ms-2 me-auto">
+                                                                    <div className="fw-bold">Date</div>
+                                                                </div>
+                                                                {contract.createdAt}
+                                                            </ListGroup.Item>
                                                             <ListGroup.Item
                                                                 as="li"
                                                                 className="d-flex justify-content-between align-items-start"
@@ -97,7 +105,7 @@ export default function ProfilePage() {
                                                                 className="d-flex justify-content-between align-items-start"
                                                             >
                                                                 <div className="ms-2 me-auto">
-                                                                    <div className="fw-bold">Subtotal</div>
+                                                                    <div className="fw-bold">Subtotal ($)</div>
                                                                 </div>
                                                                 {contract.rentalPriceSub}
                                                             </ListGroup.Item>
@@ -106,7 +114,7 @@ export default function ProfilePage() {
                                                                 className="d-flex justify-content-between align-items-start"
                                                             >
                                                                 <div className="ms-2 me-auto">
-                                                                    <div className="fw-bold">Total</div>
+                                                                    <div className="fw-bold">Total ($)</div>
                                                                 </div>
                                                                 {contract.rentalPriceTotal}
                                                             </ListGroup.Item>
